@@ -1,0 +1,3887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>情绪小绘本 · 给孩子的情绪启蒙</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  :root {
+    --bg: #FFF6EC;
+    --bg-2: #FFE7D1;
+    --ink: #3E2A1F;
+    --ink-soft: #7A5C4A;
+    --accent: #FF8A65;
+    --accent-2: #FFB99A;
+    --calm: #A8D8C9;
+    --calm-2: #D6EFE6;
+    --warn: #F4A6A0;
+    --joy: #FFD56B;
+    --shadow: 0 8px 24px rgba(62, 42, 31, 0.08);
+    --shadow-lg: 0 16px 40px rgba(62, 42, 31, 0.14);
+    --r: 24px;
+  }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    overflow-x: hidden;
+    overscroll-behavior: none;
+  }
+  body {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    position: relative;
+    background:
+      radial-gradient(120% 60% at 50% 0%, #FFE7D1 0%, transparent 60%),
+      radial-gradient(80% 40% at 50% 100%, #FFEFD9 0%, transparent 60%),
+      var(--bg);
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  /* ----------- HOME ----------- */
+  .screen { display: none; padding: 24px 20px 48px; position: relative; }
+  .screen.active { display: block; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: none; } }
+
+  .hero {
+    text-align: center;
+    padding: 32px 8px 16px;
+  }
+  .hero .badge {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--accent);
+    background: #FFF;
+    padding: 6px 14px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    letter-spacing: .1em;
+  }
+  .hero h1 {
+    font-size: 32px;
+    margin-top: 14px;
+    letter-spacing: .04em;
+    line-height: 1.2;
+  }
+  .hero h1 .em { color: var(--accent); }
+  .hero p {
+    color: var(--ink-soft);
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .floating {
+    position: relative;
+    height: 200px;
+    margin: 10px 0 16px;
+  }
+  .floating svg {
+    position: absolute;
+    animation: float 4s ease-in-out infinite;
+  }
+  .floating .b1 { left: 10%; top: 20%; animation-delay: 0s; }
+  .floating .b2 { right: 12%; top: 30%; animation-delay: 1s; }
+  .floating .b3 { left: 38%; top: 55%; animation-delay: .5s; }
+  .floating .b4 { right: 30%; top: 60%; animation-delay: 1.5s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 24px 4px 14px;
+  }
+  .section-title h2 {
+    font-size: 18px;
+    letter-spacing: .04em;
+  }
+  .section-title .sub {
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+
+  .featured {
+    background: linear-gradient(135deg, #FFD0B5 0%, #FFE0A8 100%);
+    border-radius: var(--r);
+    padding: 22px 22px 24px;
+    box-shadow: var(--shadow-lg);
+    color: #4A2E1F;
+    position: relative;
+    overflow: hidden;
+  }
+  .featured::before {
+    content: "";
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.35);
+    top: -60px; right: -60px;
+  }
+  .featured .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,.7);
+    border-radius: 999px;
+    display: inline-block;
+    letter-spacing: .12em;
+  }
+  .featured h3 { font-size: 24px; margin-top: 12px; }
+  .featured .meta {
+    margin-top: 8px;
+    color: #6E4A33;
+    font-size: 13px;
+  }
+  .featured .stage {
+    text-align: center;
+    margin: 4px 0 12px;
+  }
+  .featured .desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5A3D2A;
+    margin-bottom: 16px;
+  }
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 52px;
+    background: var(--ink);
+    color: #FFF;
+    border-radius: 16px;
+    font-size: 16px;
+    letter-spacing: .08em;
+    box-shadow: 0 6px 16px rgba(62,42,31,.25);
+    transition: transform .15s ease;
+  }
+  .btn-primary:active { transform: scale(.97); }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .story-card {
+    background: #FFF;
+    border-radius: 18px;
+    padding: 16px 14px 14px;
+    box-shadow: var(--shadow);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s ease;
+  }
+  .story-card:active { transform: scale(.97); }
+  .story-card .icon-wrap {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+    font-size: 28px;
+  }
+  .story-card .name { font-size: 15px; font-weight: 600; }
+  .story-card .emo { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+  .story-card .hint {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .story-card.locked::after {
+    content: "即将推出";
+    position: absolute;
+    top: 12px; right: 12px;
+    background: rgba(62,42,31,.06);
+    color: var(--ink-soft);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+
+  .principles {
+    background: #FFF;
+    border-radius: var(--r);
+    padding: 20px;
+    box-shadow: var(--shadow);
+  }
+  .principle-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px dashed #F0E2D0;
+  }
+  .principle-row:last-child { border-bottom: none; }
+  .principle-row .num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .principle-row .text { font-size: 13px; line-height: 1.6; color: var(--ink-soft); }
+  .principle-row .text b { color: var(--ink); }
+
+  .footer-note {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 11px;
+    margin-top: 30px;
+    line-height: 1.7;
+  }
+
+  /* ----------- STORY ----------- */
+  #storyScreen { padding: 0; }
+  .story-top {
+    position: sticky;
+    top: 0;
+    padding: 16px 20px 12px;
+    background: rgba(255, 246, 236, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .back-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #FFF;
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .voice-toggle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #FFF;
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .voice-toggle:active { transform: scale(.92); }
+  .voice-toggle.off { opacity: .55; background: #F0E2D0; }
+  .voice-toggle.speaking { background: var(--calm-2); }
+  .mood-voice {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 20;
+  }
+  .progress {
+    flex: 1;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    min-height: 40px; /* match button height so it sits on the same baseline */
+  }
+  .progress .dot {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #F0E2D0;
+    overflow: hidden;
+    position: relative;
+    transition: background .25s ease;
+  }
+  .progress .dot.done { background: var(--accent); }
+  .progress .dot.active {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 50%, #F0E2D0 50%, #F0E2D0 100%);
+  }
+  .progress .dot.active::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform-origin: left center;
+    animation: load 1.4s ease forwards;
+  }
+  @keyframes load { from { transform: scaleX(0); } to { transform: scaleX(.55); } }
+
+  .scene {
+    padding: 12px 20px 40px;
+    display: none;
+    animation: sceneIn .6s ease;
+  }
+  .scene.active { display: block; }
+  @keyframes sceneIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: none; }
+  }
+  .scene-title {
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: .2em;
+    margin-bottom: 4px;
+  }
+  .scene-narration {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    letter-spacing: .03em;
+  }
+  .stage-box {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF6EC 100%);
+    border-radius: var(--r);
+    padding: 20px;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .prompt-box {
+    margin-top: 18px;
+    background: #FFF;
+    border-radius: 16px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .prompt-box .q { font-size: 16px; color: var(--ink); line-height: 1.5; }
+  .prompt-box .a { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* Scene 1: face picker */
+  .face-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+    justify-content: space-between;
+  }
+  .face-btn {
+    flex: 1;
+    aspect-ratio: 1;
+    background: #FFF;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px;
+    transition: transform .15s ease;
+    min-height: 92px;
+  }
+  .face-btn:active { transform: scale(.95); }
+  .face-btn.correct {
+    background: var(--calm-2);
+    box-shadow: 0 6px 16px rgba(168,216,201,.5);
+    animation: pop .4s ease;
+  }
+  .face-btn.wrong {
+    animation: shake .4s ease;
+  }
+  .face-btn .label { font-size: 12px; color: var(--ink-soft); }
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  /* Scene 2: body map */
+  .body-hints {
+    display: flex; gap: 8px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .hint-chip {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    background: #FFF;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--ink-soft);
+    box-shadow: var(--shadow);
+    opacity: .4;
+    transition: all .3s ease;
+  }
+  .hint-chip.found {
+    opacity: 1;
+    background: var(--calm-2);
+    color: var(--ink);
+  }
+  .hint-chip b { display: block; color: var(--ink); font-size: 13px; margin-bottom: 2px; }
+
+  /* Scene 3: stroke */
+  .stroke-stage {
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+  }
+  .calm-meter {
+    margin-top: 14px;
+    height: 8px;
+    background: #F0E2D0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .calm-meter .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--calm) 100%);
+    width: 0%;
+    transition: width .25s ease;
+    border-radius: 4px;
+  }
+  .stroke-hint {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* Scene 4: ending */
+  .ending {
+    text-align: center;
+  }
+  .ending h2 {
+    font-size: 24px;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+  .ending p {
+    color: var(--ink-soft);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+  .ending .actions {
+    display: flex; gap: 12px;
+    margin-top: 24px;
+  }
+  .ending .actions button {
+    flex: 1;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 14px;
+    box-shadow: var(--shadow);
+  }
+  .ending .actions .ghost { background: #FFF; color: var(--ink); }
+  .ending .actions .filled { background: var(--ink); color: #FFF; }
+
+  /* Continue button */
+  .continue {
+    margin-top: 18px;
+    width: 100%;
+    height: 50px;
+    background: var(--ink);
+    color: #FFF;
+    border-radius: 14px;
+    font-size: 15px;
+    letter-spacing: .1em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease, transform .15s ease;
+  }
+  .continue.show { opacity: 1; pointer-events: auto; }
+  .continue:active { transform: scale(.97); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 76px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    background: rgba(62,42,31,.92);
+    color: #FFF;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-size: 13px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease, transform .3s ease;
+    z-index: 150;
+    max-width: 84%;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(62,42,31,.25);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Splash */
+  .splash {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #FFE5D0 0%, #FFD0B5 50%, #FFB99A 100%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity .7s ease;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 40px 24px;
+  }
+  .splash.hide { opacity: 0; pointer-events: none; }
+  .splash::before,
+  .splash::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.25);
+    pointer-events: none;
+  }
+  .splash::before { width: 280px; height: 280px; top: -100px; right: -120px; }
+  .splash::after  { width: 220px; height: 220px; bottom: -80px; left: -90px; }
+  .splash-chars {
+    position: relative;
+    width: 260px;
+    height: 110px;
+    margin-bottom: 28px;
+  }
+  .splash-chars .ch {
+    position: absolute;
+    font-size: 40px;
+    line-height: 1;
+    animation: splashIn .6s ease backwards, splashFloat 3.5s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(62,42,31,.15));
+  }
+  .splash-chars .ch1 { left: 0;    top: 28px; animation-delay: .0s, .8s; }
+  .splash-chars .ch2 { left: 56px; top: 64px; animation-delay: .15s, 1.0s; }
+  .splash-chars .ch3 { left: 110px; top: 8px;  animation-delay: .3s, 1.2s; font-size: 52px; }
+  .splash-chars .ch4 { left: 168px; top: 60px; animation-delay: .45s, 1.4s; }
+  .splash-chars .ch5 { left: 220px; top: 26px; animation-delay: .6s, 1.6s; }
+  @keyframes splashIn {
+    from { opacity: 0; transform: translateY(20px) scale(.6); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes splashFloat {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -8px; }
+  }
+  .splash-title {
+    font-size: 38px;
+    color: #4A2E1F;
+    letter-spacing: .14em;
+    line-height: 1;
+    text-align: center;
+    animation: splashIn .7s ease .65s backwards;
+  }
+  .splash-sub {
+    font-size: 13px;
+    color: #7A5C4A;
+    margin-top: 14px;
+    letter-spacing: .24em;
+    animation: splashIn .7s ease .85s backwards;
+    text-align: center;
+  }
+  .splash-tagline {
+    font-size: 12px;
+    color: #8C6E58;
+    margin-top: 38px;
+    letter-spacing: .1em;
+    line-height: 1.8;
+    text-align: center;
+    animation: splashIn .7s ease 1.05s backwards;
+  }
+  .splash-tagline em {
+    font-style: normal;
+    color: #C84A1F;
+  }
+  .splash-loader {
+    margin-top: 28px;
+    display: flex;
+    gap: 8px;
+    animation: splashIn .7s ease 1.25s backwards;
+  }
+  .splash-loader .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #C84A1F;
+    animation: dotBounce 1.4s ease-in-out infinite;
+  }
+  .splash-loader .dot:nth-child(2) { animation-delay: .2s; }
+  .splash-loader .dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(.5); opacity: .4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+  .splash-skip {
+    position: absolute;
+    bottom: 28px;
+    font-size: 11px;
+    color: #8C6E58;
+    letter-spacing: .2em;
+    opacity: 0;
+    animation: splashIn .6s ease 1.6s forwards;
+  }
+
+  /* Mood entry (today's mood) */
+  #moodEntry { padding: 30px 22px 36px; text-align: center; position: relative; }
+  .mood-header { margin-bottom: 24px; position: relative; }
+  .mood-greeting {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--accent);
+    background: #FFF;
+    padding: 6px 14px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    letter-spacing: .14em;
+  }
+  .mood-question {
+    font-size: 30px;
+    margin-top: 18px;
+    line-height: 1.35;
+    letter-spacing: .04em;
+  }
+  .mood-question .em { color: var(--accent); }
+  .mood-sub {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.7;
+  }
+  .mood-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 6px;
+  }
+  .mood-btn {
+    background: #FFF;
+    border-radius: 22px;
+    padding: 18px 12px 14px;
+    box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: transform .15s ease, box-shadow .2s ease;
+    min-height: 110px;
+  }
+  .mood-btn:active { transform: scale(.96); box-shadow: 0 4px 12px rgba(62,42,31,.12); }
+  .mood-btn .name { font-size: 14px; }
+  .mood-btn .hint { font-size: 11px; color: var(--ink-soft); margin-top: -2px; }
+  .mood-actions {
+    margin-top: 28px;
+    display: flex; flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+  .mood-skip {
+    background: #FFF;
+    color: var(--ink-soft);
+    font-size: 13px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    box-shadow: var(--shadow);
+    letter-spacing: .04em;
+  }
+  .mood-parent-link {
+    color: var(--ink-soft);
+    font-size: 12px;
+    padding: 8px;
+    letter-spacing: .04em;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--accent-2);
+    background: transparent;
+  }
+
+  /* Mood transition overlay */
+  .mood-transition {
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 246, 236, 0.96);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s ease;
+    z-index: 200;
+    text-align: center;
+    padding: 30px;
+  }
+  .mood-transition.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .mood-transition .badge {
+    background: var(--accent);
+    color: #FFF;
+    padding: 7px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: .16em;
+    animation: badgeIn .4s ease;
+  }
+  .mood-transition .character {
+    margin: 28px 0 8px;
+    font-size: 72px;
+    line-height: 1;
+    animation: charBob .5s ease .15s backwards;
+  }
+  .mood-transition h2 {
+    font-size: 22px;
+    line-height: 1.5;
+    margin: 18px 0 12px;
+    letter-spacing: .03em;
+    animation: charBob .5s ease .35s backwards;
+  }
+  .mood-transition .story-title {
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    animation: charBob .5s ease .5s backwards;
+  }
+  @keyframes badgeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+  @keyframes charBob { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: none; } }
+
+  /* Parent guide */
+  #parentGuide { padding: 0; background: var(--bg); }
+  .pg-top {
+    position: sticky;
+    top: 0;
+    padding: 14px 20px;
+    background: rgba(255, 246, 236, 0.92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid #F0E2D0;
+  }
+  .pg-top h2 { font-size: 16px; flex: 1; letter-spacing: .04em; }
+  .pg-body { padding: 18px 20px 50px; }
+  .pg-hero {
+    background: linear-gradient(135deg, #FFE0A8 0%, #FFD0B5 100%);
+    border-radius: var(--r);
+    padding: 26px 24px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-lg);
+    color: #4A2E1F;
+  }
+  .pg-hero .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,.7);
+    border-radius: 999px;
+    display: inline-block;
+    letter-spacing: .14em;
+  }
+  .pg-hero h2 { font-size: 22px; margin-top: 12px; line-height: 1.4; }
+  .pg-hero p { color: #6E4A33; margin-top: 10px; font-size: 13px; line-height: 1.7; }
+  .pg-card {
+    background: #FFF;
+    border-radius: var(--r);
+    padding: 22px 22px 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+  .pg-card h3 {
+    font-size: 17px;
+    margin-bottom: 14px;
+    letter-spacing: .04em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .pg-card h3 .ic {
+    width: 30px; height: 30px;
+    border-radius: 10px;
+    background: var(--bg-2);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .pg-card p {
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+  .pg-card p:last-child { margin-bottom: 0; }
+  .pg-card b { color: var(--ink); font-weight: 600; }
+  .pg-list { list-style: none; padding: 0; margin: 0; }
+  .pg-list li {
+    padding: 12px 0;
+    border-bottom: 1px dashed #F0E2D0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+  .pg-list li:first-child { padding-top: 4px; }
+  .pg-list li:last-child { border-bottom: none; padding-bottom: 4px; }
+  .pg-list li b { display: block; color: var(--ink); font-size: 14px; margin-bottom: 4px; font-weight: 600; }
+  .pg-layers {
+    display: flex; flex-direction: column;
+    gap: 12px;
+  }
+  .pg-layer {
+    display: flex; gap: 14px;
+    align-items: flex-start;
+  }
+  .pg-layer .num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #FFF;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .pg-layer .num.l2 { background: var(--calm); color: var(--ink); }
+  .pg-layer .num.l3 { background: var(--joy); color: var(--ink); }
+  .pg-layer .body { flex: 1; font-size: 13px; line-height: 1.7; color: var(--ink-soft); }
+  .pg-layer .body b { display: block; color: var(--ink); margin-bottom: 4px; font-size: 14px; }
+
+  .pg-story-card {
+    background: var(--calm-2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .pg-story-card .who {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .pg-story-card .what {
+    font-size: 12px;
+    color: #2E5C50;
+    line-height: 1.7;
+  }
+  .pg-story-card .what b { color: #1F4438; }
+
+  .pg-warn {
+    background: #FFE7D1;
+    border-left: 4px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #7A4A2A;
+    margin-top: 10px;
+  }
+  .pg-warn b { color: #4A2E1F; }
+
+  /* Generic story engine */
+  #gStage { min-height: 240px; }
+  #gStage svg { max-width: 100%; height: auto; display: block; }
+  .choice-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .choice-btn {
+    width: 100%;
+    min-height: 56px;
+    background: #FFF;
+    border-radius: 16px;
+    padding: 14px 18px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    font-size: 14px;
+    line-height: 1.5;
+    display: flex; align-items: center; gap: 12px;
+    transition: transform .15s ease;
+  }
+  .choice-btn:active { transform: scale(.97); }
+  .choice-btn .label { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-2); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .choice-btn.picked { background: var(--calm-2); }
+  .choice-btn.dimmed { opacity: .4; }
+
+  .blow-mic-btn {
+    width: 100%;
+    height: 64px;
+    border-radius: 18px;
+    background: var(--ink);
+    color: #FFF;
+    margin-top: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-size: 15px;
+    letter-spacing: .08em;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .blow-mic-btn .ring {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,.18);
+    pointer-events: none;
+    animation: ringExpand 1s ease-out forwards;
+  }
+  @keyframes ringExpand {
+    from { width: 0; height: 0; opacity: .8; }
+    to { width: 200px; height: 200px; opacity: 0; }
+  }
+
+  .tap-target {
+    position: absolute;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,213,107,.7), rgba(255,213,107,0) 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .8; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: .4; }
+  }
+
+  .tilt-bar {
+    margin-top: 14px;
+    height: 8px;
+    background: #F0E2D0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .tilt-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--joy), var(--accent));
+    width: 0%;
+    transition: width .2s ease;
+  }
+
+  /* SVG specifics */
+  .bear-svg .face-feature { transition: all .5s ease; }
+  .body-zone {
+    cursor: pointer;
+    transition: all .3s ease;
+  }
+  .body-zone:active { transform: scale(.95); }
+  .body-zone.found .zone-glow { opacity: 1; }
+  .zone-glow { opacity: 0; transition: opacity .4s ease; }
+</style>
+</head>
+<body>
+
+<!-- ============== SPLASH ============== -->
+<div class="splash" id="splash" onclick="dismissSplash()">
+  <div class="splash-chars" aria-hidden="true">
+    <span class="ch ch1">🐰</span>
+    <span class="ch ch2">🐶</span>
+    <span class="ch ch3">🐻</span>
+    <span class="ch ch4">🦊</span>
+    <span class="ch ch5">🦌</span>
+  </div>
+  <div class="splash-title">情绪小绘本</div>
+  <div class="splash-sub">FOR · 3-6</div>
+  <div class="splash-tagline">看见情绪 · 回应情绪<br>陪 <em>3-6 岁</em> 的孩子慢慢长大</div>
+  <div class="splash-loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div class="splash-skip">TAP ANYWHERE TO BEGIN</div>
+</div>
+
+<!-- ============== HOME SCREEN ============== -->
+<section id="homeScreen" class="screen active">
+  <button class="voice-toggle mood-voice" onclick="toggleVoice()" aria-label="语音开关" title="语音开关">🔊</button>
+
+  <!-- Mood selector at top of home -->
+  <div class="mood-header">
+    <span class="mood-greeting">HELLO · 你好呀</span>
+    <h1 class="mood-question">今天<br>你的心情<span class="em">是哪个</span>？</h1>
+    <p class="mood-sub">点一点你的感觉<br>我陪你读一个<i>刚刚好</i>的故事 →</p>
+  </div>
+  <div class="mood-grid">
+    <button class="mood-btn" onclick="pickMood('happy')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#FFD56B"/><path d="M20 26 Q24 22 28 26" stroke="#3E2A1F" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M34 26 Q38 22 42 26" stroke="#3E2A1F" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M21 37 Q31 45 41 37" stroke="#3E2A1F" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="name">开心</span>
+      <span class="hint">和小鸡跳舞</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('sad')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#A8C8E8"/><circle cx="23" cy="27" r="2.6" fill="#3E2A1F"/><circle cx="39" cy="27" r="2.6" fill="#3E2A1F"/><path d="M21 41 Q31 33 41 41" stroke="#3E2A1F" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="23" cy="35" rx="2" ry="4" fill="#6BA8D8"/></svg>
+      <span class="name">难过</span>
+      <span class="hint">和小狗一起想念</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('angry')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#F4A6A0"/><path d="M16 22 L26 27" stroke="#3E2A1F" stroke-width="3.2" stroke-linecap="round"/><path d="M46 22 L36 27" stroke="#3E2A1F" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="30" r="2.6" fill="#3E2A1F"/><circle cx="39" cy="30" r="2.6" fill="#3E2A1F"/><path d="M21 42 Q31 38 41 42" stroke="#3E2A1F" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <span class="name">生气</span>
+      <span class="hint">和小熊一起平静</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('scared')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#D8CFEF"/><circle cx="22" cy="27" r="5" fill="#FFF" stroke="#3E2A1F" stroke-width="1.6"/><circle cx="40" cy="27" r="5" fill="#FFF" stroke="#3E2A1F" stroke-width="1.6"/><circle cx="22" cy="27" r="2.2" fill="#3E2A1F"/><circle cx="40" cy="27" r="2.2" fill="#3E2A1F"/><ellipse cx="31" cy="41" rx="3.4" ry="4" fill="none" stroke="#3E2A1F" stroke-width="2.4"/></svg>
+      <span class="name">害怕</span>
+      <span class="hint">和小兔点亮月亮</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('shy')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#FFCFD8"/><path d="M16 28 Q21 24 26 28" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M36 28 Q41 24 46 28" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M24 42 Q31 47 38 42" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="14" cy="37" r="4.5" fill="#FF9AB0" opacity=".75"/><circle cx="48" cy="37" r="4.5" fill="#FF9AB0" opacity=".75"/></svg>
+      <span class="name">害羞</span>
+      <span class="hint">和小鹿吹散蝴蝶</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('wronged')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#C8DFE8"/><circle cx="23" cy="27" r="2.6" fill="#3E2A1F"/><circle cx="39" cy="27" r="2.6" fill="#3E2A1F"/><ellipse cx="21" cy="35" rx="2" ry="4" fill="#6BA8D8"/><ellipse cx="41" cy="35" rx="2" ry="4" fill="#6BA8D8"/><path d="M24 43 Q31 37 38 43" stroke="#3E2A1F" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg>
+      <span class="name">委屈</span>
+      <span class="hint">和小猫说出来</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('miss')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#FFD6E0"/><path d="M16 26 Q21 22 26 26" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M36 26 Q41 22 46 26" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M22 41 Q31 36 40 41" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><text x="20" y="20" font-size="11">♡</text></svg>
+      <span class="name">不舍</span>
+      <span class="hint">和小袋鼠去上学</span>
+    </button>
+    <button class="mood-btn" onclick="pickMood('lonely')">
+      <svg width="62" height="62" viewBox="0 0 62 62"><circle cx="31" cy="31" r="28" fill="#B8B8D9"/><path d="M16 25 Q21 22 26 25" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M36 25 Q41 22 46 25" stroke="#3E2A1F" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M22 41 L40 41" stroke="#3E2A1F" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <span class="name">孤单</span>
+      <span class="hint">和小象打招呼</span>
+    </button>
+  </div>
+
+  <!-- Story library -->
+  <div class="section-title">
+    <h2>所有故事</h2>
+    <span class="sub">10 本</span>
+  </div>
+  <div class="story-grid">
+    <div class="story-card" onclick="startStory('home')">
+      <div class="icon-wrap" style="background:#FFD0B5;">🐻</div>
+      <div class="name">生气的小熊</div>
+      <div class="emo">情绪 · 生气</div>
+      <div class="hint">本期主打 · 4 个场景</div>
+    </div>
+    <div class="story-card" onclick="playStory('kangaroo','home')">
+      <div class="icon-wrap" style="background:#FFD6E0;">🦘</div>
+      <div class="name">不舍的小袋鼠</div>
+      <div class="emo">场景 · 上幼儿园</div>
+      <div class="hint">分离焦虑 · 表情 + 抚摸</div>
+    </div>
+    <div class="story-card" onclick="playStory('deer','home')">
+      <div class="icon-wrap" style="background:#FFE8D0;">🦌</div>
+      <div class="name">害羞的小鹿</div>
+      <div class="emo">场景 · 上台表演</div>
+      <div class="hint">身体地图 · 吹气魔法</div>
+    </div>
+    <div class="story-card" onclick="playStory('kitten','home')">
+      <div class="icon-wrap" style="background:#E8E0FB;">🐱</div>
+      <div class="name">委屈的小猫</div>
+      <div class="emo">场景 · 觉得爸妈偏心</div>
+      <div class="hint">表情匹配 · 情境选择</div>
+    </div>
+    <div class="story-card" onclick="playStory('bunny','home')">
+      <div class="icon-wrap" style="background:#FFE7D1;">🐰</div>
+      <div class="name">怕黑的小兔</div>
+      <div class="emo">情绪 · 害怕</div>
+      <div class="hint">吹气魔法 · 让月亮变亮</div>
+    </div>
+    <div class="story-card" onclick="playStory('dog','home')">
+      <div class="icon-wrap" style="background:#D6EFE6;">🐶</div>
+      <div class="name">想念的小狗</div>
+      <div class="emo">情绪 · 难过</div>
+      <div class="hint">抚摸安抚 · 接住眼泪</div>
+    </div>
+    <div class="story-card" onclick="playStory('fox','home')">
+      <div class="icon-wrap" style="background:#FFF1C7;">🦊</div>
+      <div class="name">嫉妒的小狐</div>
+      <div class="emo">情绪 · 嫉妒</div>
+      <div class="hint">情境选择 · 说出来还是抢过来</div>
+    </div>
+    <div class="story-card" onclick="playStory('duck','home')">
+      <div class="icon-wrap" style="background:#FBD5D2;">🦆</div>
+      <div class="name">紧张的小鸭</div>
+      <div class="emo">情绪 · 紧张</div>
+      <div class="hint">身体地图 · 找紧张藏在哪</div>
+    </div>
+    <div class="story-card" onclick="playStory('elephant','home')">
+      <div class="icon-wrap" style="background:#E8DFFB;">🐘</div>
+      <div class="name">孤单的小象</div>
+      <div class="emo">情绪 · 孤独</div>
+      <div class="hint">表情匹配 · 点击唤醒</div>
+    </div>
+    <div class="story-card" onclick="playStory('chick','home')">
+      <div class="icon-wrap" style="background:#FFE0A8;">🐥</div>
+      <div class="name">开心的小鸡</div>
+      <div class="emo">情绪 · 喜悦</div>
+      <div class="hint">摇晃互动 · 一起跳舞</div>
+    </div>
+  </div>
+
+  <!-- Principles + guide entry -->
+  <div class="section-title">
+    <h2>给爸爸妈妈</h2>
+    <span class="sub">设计原则</span>
+  </div>
+  <div class="principles">
+    <div class="principle-row">
+      <div class="num">1</div>
+      <div class="text"><b>情绪要具象。</b>3-6 岁孩子靠画面理解情绪，文字解释他听不懂。</div>
+    </div>
+    <div class="principle-row">
+      <div class="num">2</div>
+      <div class="text"><b>4-6 个场景就够。</b>注意力只有 3-8 分钟，不要贪多。</div>
+    </div>
+    <div class="principle-row">
+      <div class="num">3</div>
+      <div class="text"><b>按钮够大，手势够简单。</b>只用「点」和「滑」，按钮 ≥ 44px。</div>
+    </div>
+    <div class="principle-row">
+      <div class="num">4</div>
+      <div class="text"><b>交互融入故事。</b>不是答题，而是「帮小熊做点什么」。</div>
+    </div>
+  </div>
+  <button onclick="openParentGuide()" style="margin-top:14px;width:100%;height:52px;background:#FFF;color:var(--ink);border-radius:16px;font-size:14px;letter-spacing:.06em;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:8px;">
+    📖 &nbsp;完整家长指南
+    <span style="color:var(--ink-soft);">→</span>
+  </button>
+
+  <div class="footer-note">
+    陪伴比答案更重要 ·<br>
+    Made with care for 3-6 yrs
+  </div>
+</section>
+
+<!-- ============== STORY SCREEN ============== -->
+<section id="storyScreen" class="screen">
+  <div class="story-top">
+    <button class="back-btn" onclick="backFromStory()">←</button>
+    <div class="progress">
+      <div class="dot" data-step="1"></div>
+      <div class="dot" data-step="2"></div>
+      <div class="dot" data-step="3"></div>
+      <div class="dot" data-step="4"></div>
+    </div>
+    <button class="voice-toggle" onclick="toggleVoice()" aria-label="语音开关">🔊</button>
+  </div>
+
+  <!-- Scene 1: trigger + face match -->
+  <div class="scene active" data-scene="1">
+    <div class="scene-title">场景 1 / 4</div>
+    <div class="scene-narration">小熊搭的积木<br>「哗啦——」一下塌了。</div>
+
+    <div class="stage-box">
+      <svg width="240" height="240" viewBox="0 0 240 240" class="bear-svg" id="bear1">
+        <g stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="120" cy="228" rx="78" ry="5" fill="#000" opacity=".15" stroke="none"/>
+          <!-- fallen blocks -->
+          <rect x="20" y="208" width="22" height="16" fill="#FFB99A" rx="3" transform="rotate(-20 31 216)"/>
+          <rect x="48" y="214" width="22" height="13" fill="#A8D8C9" rx="3" transform="rotate(15 59 220)"/>
+          <rect x="180" y="208" width="22" height="16" fill="#FFD56B" rx="3" transform="rotate(35 191 216)"/>
+          <rect x="200" y="218" width="20" height="12" fill="#F4A6A0" rx="3" transform="rotate(-10 210 224)"/>
+          <!-- 2 round ears on top of head -->
+          <circle cx="84" cy="50" r="14" fill="#C68A5C"/>
+          <circle cx="156" cy="50" r="14" fill="#C68A5C"/>
+          <!-- body extends through to feet -->
+          <ellipse cx="120" cy="160" rx="50" ry="58" fill="#C68A5C"/>
+          <!-- 2 feet -->
+          <ellipse cx="98" cy="216" rx="14" ry="7" fill="#C68A5C"/>
+          <ellipse cx="142" cy="216" rx="14" ry="7" fill="#C68A5C"/>
+          <!-- 2 fists clenched at sides -->
+          <circle cx="68" cy="160" r="13" fill="#C68A5C"/>
+          <circle cx="172" cy="160" r="13" fill="#C68A5C"/>
+          <!-- head -->
+          <circle cx="120" cy="84" r="44" fill="#C68A5C"/>
+          <!-- angry V brows -->
+          <path d="M96 70 L112 78" stroke-width="3.5" class="face-feature"/>
+          <path d="M144 70 L128 78" stroke-width="3.5" class="face-feature"/>
+          <!-- eye dots -->
+          <circle cx="108" cy="82" r="3.2" fill="#3E2A1F" stroke="none" class="face-feature"/>
+          <circle cx="132" cy="82" r="3.2" fill="#3E2A1F" stroke="none" class="face-feature"/>
+          <!-- nose -->
+          <ellipse cx="120" cy="98" rx="4.5" ry="3" fill="#3E2A1F" stroke="none"/>
+          <!-- angry frown -->
+          <path d="M108 110 Q120 104 132 110" fill="none" class="face-feature"/>
+          <!-- anger steam lines -->
+          <g id="angerLines" opacity=".9">
+            <path d="M54 24 Q58 12 64 18" stroke="#FF8A65" stroke-width="2.5" fill="none"/>
+            <path d="M76 8 L78 18" stroke="#FF8A65" stroke-width="2.5"/>
+            <path d="M186 24 Q182 12 176 18" stroke="#FF8A65" stroke-width="2.5" fill="none"/>
+            <path d="M164 8 L162 18" stroke="#FF8A65" stroke-width="2.5"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="prompt-box">
+      <div class="q">小熊现在心里是什么感觉呢？</div>
+      <div class="a">点一点你觉得对的表情</div>
+    </div>
+
+    <div class="face-row" id="faceRow">
+      <button class="face-btn" data-pick="happy">
+        <svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#FFD56B"/><circle cx="16" cy="20" r="2.2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2.2" fill="#3E2A1F"/><path d="M15 27 Q22 33 29 27" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        <span class="label">开心</span>
+      </button>
+      <button class="face-btn" data-pick="sad">
+        <svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#A8C8E8"/><circle cx="16" cy="20" r="2.2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2.2" fill="#3E2A1F"/><path d="M15 30 Q22 25 29 30" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M16 24 Q14 28 14 30" stroke="#6BA8D8" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <span class="label">难过</span>
+      </button>
+      <button class="face-btn" data-pick="angry">
+        <svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="#F4A6A0"/><path d="M12 16 L20 19" stroke="#3E2A1F" stroke-width="2.4" stroke-linecap="round"/><path d="M32 16 L24 19" stroke="#3E2A1F" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="22" r="2" fill="#3E2A1F"/><circle cx="28" cy="22" r="2" fill="#3E2A1F"/><path d="M15 30 Q22 27 29 30" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg>
+        <span class="label">生气</span>
+      </button>
+    </div>
+
+    <button class="continue" id="continue1" onclick="goScene(2)">继续 →</button>
+  </div>
+
+  <!-- Scene 2: body map -->
+  <div class="scene" data-scene="2">
+    <div class="scene-title">场景 2 / 4</div>
+    <div class="scene-narration">生气藏在身体里——<br>点一点，看看它躲在哪。</div>
+
+    <div class="stage-box">
+      <svg width="240" height="280" viewBox="0 0 240 280" id="bear2">
+        <g stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="120" cy="270" rx="76" ry="5" fill="#000" opacity=".15" stroke="none"/>
+          <!-- 2 round ears (drawn first so head covers their inner halves) -->
+          <circle cx="80" cy="60" r="14" fill="#C68A5C"/>
+          <circle cx="160" cy="60" r="14" fill="#C68A5C"/>
+          <!-- body extends to feet -->
+          <ellipse cx="120" cy="180" rx="55" ry="74" fill="#C68A5C"/>
+          <!-- 2 feet -->
+          <ellipse cx="98" cy="252" rx="14" ry="6" fill="#C68A5C"/>
+          <ellipse cx="142" cy="252" rx="14" ry="6" fill="#C68A5C"/>
+
+          <!-- BELLY zone -->
+          <g class="body-zone" data-zone="belly">
+            <ellipse class="zone-glow" cx="120" cy="200" rx="38" ry="34" fill="#FF8A65" opacity=".4" stroke="none"/>
+            <!-- tight belly: 2 squeeze lines -->
+            <path d="M104 192 Q120 199 136 192" fill="none" opacity=".6"/>
+            <path d="M104 208 Q120 215 136 208" fill="none" opacity=".6"/>
+          </g>
+
+          <!-- FIST left zone -->
+          <g class="body-zone" data-zone="fist">
+            <circle class="zone-glow" cx="62" cy="200" r="22" fill="#FF8A65" opacity=".4" stroke="none"/>
+            <circle cx="62" cy="200" r="14" fill="#C68A5C"/>
+          </g>
+          <!-- FIST right zone -->
+          <g class="body-zone" data-zone="fist2">
+            <circle class="zone-glow" cx="178" cy="200" r="22" fill="#FF8A65" opacity=".4" stroke="none"/>
+            <circle cx="178" cy="200" r="14" fill="#C68A5C"/>
+          </g>
+
+          <!-- head -->
+          <circle cx="120" cy="96" r="48" fill="#C68A5C"/>
+
+          <!-- FACE zone -->
+          <g class="body-zone" data-zone="face">
+            <circle class="zone-glow" cx="120" cy="96" r="48" fill="#FF8A65" opacity=".4" stroke="none"/>
+            <!-- worried V brows -->
+            <path d="M99 82 L112 88" stroke-width="3"/>
+            <path d="M141 82 L128 88" stroke-width="3"/>
+            <!-- eye dots -->
+            <circle cx="108" cy="94" r="3" fill="#3E2A1F" stroke="none"/>
+            <circle cx="132" cy="94" r="3" fill="#3E2A1F" stroke="none"/>
+            <!-- nose -->
+            <ellipse cx="120" cy="108" rx="4.5" ry="3" fill="#3E2A1F" stroke="none"/>
+            <!-- worried mouth -->
+            <path d="M108 122 Q120 117 132 122" fill="none"/>
+            <!-- hot cheek blush -->
+            <circle cx="90" cy="108" r="6" fill="#FF8A65" opacity=".5" stroke="none"/>
+            <circle cx="150" cy="108" r="6" fill="#FF8A65" opacity=".5" stroke="none"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="body-hints" id="bodyHints">
+      <div class="hint-chip" data-zone="belly"><b>肚子</b>紧紧的</div>
+      <div class="hint-chip" data-zone="fist"><b>拳头</b>握紧了</div>
+      <div class="hint-chip" data-zone="face"><b>脸</b>烫烫的</div>
+    </div>
+
+    <button class="continue" id="continue2" onclick="goScene(3)">继续 →</button>
+  </div>
+
+  <!-- Scene 3: stroke comfort -->
+  <div class="scene" data-scene="3">
+    <div class="scene-title">场景 3 / 4</div>
+    <div class="scene-narration">妈妈来了——<br>用手指轻轻摸一摸小熊的后背。</div>
+
+    <div class="stage-box stroke-stage" id="strokeStage">
+      <svg width="260" height="240" viewBox="0 0 260 240" id="bear3">
+        <ellipse cx="130" cy="232" rx="100" ry="4" fill="#000" opacity=".12"/>
+
+        <g stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- ===== MOM BEAR (slightly darker shade) ===== -->
+          <!-- mom ears -->
+          <circle cx="180" cy="58" r="13" fill="#A87248"/>
+          <circle cx="236" cy="58" r="13" fill="#A87248"/>
+          <!-- mom body -->
+          <ellipse cx="208" cy="170" rx="46" ry="58" fill="#A87248"/>
+          <!-- mom head -->
+          <circle cx="208" cy="90" r="38" fill="#A87248"/>
+          <!-- mom closed kind eyes -->
+          <path d="M194 86 Q198 82 202 86" fill="none"/>
+          <path d="M214 86 Q218 82 222 86" fill="none"/>
+          <!-- mom nose -->
+          <ellipse cx="208" cy="100" rx="4" ry="3" fill="#3E2A1F" stroke="none"/>
+          <!-- mom gentle smile -->
+          <path d="M201 110 Q208 114 215 110" fill="none"/>
+          <!-- mom arm reaching to little bear -->
+          <path d="M170 150 Q140 156 112 158" stroke-width="20" stroke="#A87248" fill="none"/>
+          <!-- mom paw resting on little bear's back -->
+          <ellipse cx="110" cy="158" rx="13" ry="10" fill="#A87248"/>
+
+          <!-- ===== LITTLE BEAR (from behind, head turned left) ===== -->
+          <!-- 2 ears (visible because head turns: one full, one half-hidden) -->
+          <circle cx="52" cy="84" r="12" fill="#C68A5C"/>
+          <circle cx="100" cy="80" r="10" fill="#C68A5C" opacity=".85"/>
+          <!-- body -->
+          <ellipse cx="100" cy="190" rx="55" ry="50" fill="#C68A5C"/>
+          <!-- 2 small feet at bottom -->
+          <ellipse cx="78" cy="232" rx="13" ry="6" fill="#C68A5C"/>
+          <ellipse cx="118" cy="232" rx="13" ry="6" fill="#C68A5C"/>
+          <!-- back: STROKE AREA (PRESERVED for hit detection — cx=100 cy=170 rx=42 ry=38) -->
+          <ellipse id="strokeArea" cx="100" cy="170" rx="42" ry="38" fill="#D9A876" stroke="none"/>
+          <!-- little tail -->
+          <circle cx="142" cy="184" r="8" fill="#C68A5C"/>
+          <!-- head turning sideways -->
+          <circle cx="76" cy="112" r="40" fill="#C68A5C"/>
+          <!-- closed sad eye (id PRESERVED) -->
+          <path id="bearEye" d="M62 108 Q68 105 74 108" stroke="#3E2A1F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- nose (left-facing on snout) -->
+          <ellipse cx="42" cy="118" rx="3.5" ry="2.6" fill="#3E2A1F" stroke="none"/>
+          <!-- mouth (id PRESERVED, JS animates d) -->
+          <path id="bearMouth" d="M48 128 Q54 132 60 128" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- tear (id PRESERVED, JS animates opacity) -->
+          <ellipse id="bearTear" cx="56" cy="118" rx="2" ry="4" fill="#7AB8E0" stroke="none"/>
+        </g>
+
+        <!-- stroke trail (drawn dynamically) -->
+        <g id="strokeTrails"></g>
+      </svg>
+    </div>
+
+    <div class="calm-meter"><div class="fill" id="calmFill"></div></div>
+    <div class="stroke-hint" id="strokeHint">在小熊的后背上来回滑动 ✋</div>
+
+    <button class="continue" id="continue3" onclick="goScene(4)">继续 →</button>
+  </div>
+
+  <!-- Scene 4: ending -->
+  <div class="scene" data-scene="4">
+    <div class="scene-title">场景 4 / 4</div>
+    <div class="ending">
+      <div class="stage-box" style="background:linear-gradient(180deg,#FFF6EC 0%,#D6EFE6 100%);">
+        <svg width="240" height="220" viewBox="0 0 240 220" id="bear4">
+          <ellipse cx="100" cy="206" rx="68" ry="4" fill="#000" opacity=".15"/>
+          <!-- nicely stacked blocks with a star on top -->
+          <rect x="160" y="180" width="32" height="22" fill="#FFB99A" stroke="#5C3D24" stroke-width="1.5" rx="4"/>
+          <rect x="160" y="158" width="32" height="22" fill="#A8D8C9" stroke="#5C3D24" stroke-width="1.5" rx="4"/>
+          <rect x="160" y="136" width="32" height="22" fill="#FFD56B" stroke="#5C3D24" stroke-width="1.5" rx="4"/>
+          <rect x="160" y="114" width="32" height="22" fill="#F4A6A0" stroke="#5C3D24" stroke-width="1.5" rx="4"/>
+          <text x="176" y="108" font-size="20" text-anchor="middle">⭐</text>
+          <text x="206" y="58" font-size="14">✨</text>
+          <text x="28" y="36" font-size="16">✨</text>
+          <text x="32" y="120" font-size="12">🌿</text>
+
+          <g stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 2 round ears -->
+            <circle cx="58" cy="56" r="12" fill="#C68A5C"/>
+            <circle cx="118" cy="56" r="12" fill="#C68A5C"/>
+            <!-- body extends to feet -->
+            <ellipse cx="88" cy="158" rx="46" ry="50" fill="#C68A5C"/>
+            <!-- 2 feet -->
+            <ellipse cx="68" cy="200" rx="13" ry="6" fill="#C68A5C"/>
+            <ellipse cx="108" cy="200" rx="13" ry="6" fill="#C68A5C"/>
+            <!-- arm reaching toward block stack -->
+            <ellipse cx="132" cy="148" rx="9" ry="18" fill="#C68A5C" transform="rotate(40 132 148)"/>
+            <circle cx="142" cy="128" r="10" fill="#C68A5C"/>
+            <!-- left arm relaxed -->
+            <circle cx="46" cy="174" r="10" fill="#C68A5C"/>
+            <!-- head -->
+            <circle cx="88" cy="86" r="40" fill="#C68A5C"/>
+            <!-- happy crescent eyes -->
+            <path d="M70 82 Q76 76 82 82" stroke-width="2.5" fill="none"/>
+            <path d="M94 82 Q100 76 106 82" stroke-width="2.5" fill="none"/>
+            <!-- nose -->
+            <ellipse cx="88" cy="96" rx="4" ry="3" fill="#3E2A1F" stroke="none"/>
+            <!-- big smile -->
+            <path d="M78 108 Q88 116 98 108" fill="none"/>
+            <!-- happy blush -->
+            <circle cx="66" cy="104" r="4" fill="#FFB99A" opacity=".7" stroke="none"/>
+            <circle cx="110" cy="104" r="4" fill="#FFB99A" opacity=".7" stroke="none"/>
+          </g>
+        </svg>
+      </div>
+      <h2>现在的小熊<br>感觉好多了 🌿</h2>
+      <p>每一种情绪都会来，也会走。<br>有人陪着，就不那么难了。</p>
+      <div class="actions">
+        <button class="ghost" onclick="goHome()">回到首页</button>
+        <button class="filled" onclick="restart()">再读一次</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== GENERIC STORY (data-driven) ============== -->
+<section id="genericStory" class="screen">
+  <div class="story-top">
+    <button class="back-btn" onclick="backFromStory()">←</button>
+    <div class="progress" id="gProgress"></div>
+    <button class="voice-toggle" onclick="toggleVoice()" aria-label="语音开关">🔊</button>
+  </div>
+  <div class="scene active">
+    <div class="scene-title" id="gSceneTitle"></div>
+    <div class="scene-narration" id="gNarration"></div>
+    <div class="stage-box" id="gStage" style="position:relative;"></div>
+    <div id="gInteractionPanel"></div>
+    <button class="continue" id="gContinue">继续 →</button>
+  </div>
+</section>
+
+<!-- ============== PARENT GUIDE ============== -->
+<section id="parentGuide" class="screen">
+  <div class="pg-top">
+    <button class="back-btn" onclick="closeParentGuide()" aria-label="返回">←</button>
+    <h2>给爸爸妈妈的话</h2>
+  </div>
+  <div class="pg-body">
+    <div class="pg-hero">
+      <span class="tag">A LETTER · 写给你</span>
+      <h2>不是教孩子<br>怎么"对"地感受。</h2>
+      <p>而是把抽象的情绪——生气、害羞、委屈、不舍——画出来、摸出来、吹出来，<br>让孩子用身体而不只是脑袋去理解它。</p>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">🌱</span>为什么是 3-6 岁</h3>
+      <p>这几年是孩子<b>情绪识别能力发育最快</b>的时期——他们刚刚开始把"心里酸酸的"和"委屈"这两个词连起来。</p>
+      <p>这也是认知发展心理学说的"前运算阶段"——孩子还<b>不能靠抽象的解释理解情绪</b>，必须看到、摸到、感受到。</p>
+      <p>这本绘本的每一个交互，都是替"讲道理"做不到的事情。</p>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">🤝</span>怎么陪孩子读</h3>
+      <ul class="pg-list">
+        <li><b>坐在一起</b>不是把手机塞过去就走。孩子操作屏幕，你来念旁白、做表情、加配音。</li>
+        <li><b>读完聊一聊</b>"你上一次也生过气吧？是什么样子？"——问开放问题，别急着教导。</li>
+        <li><b>不评价情绪</b>"生气也没关系"比"不要生气"管用一千倍。情绪没有对错，行为才有。</li>
+        <li><b>一次一本就够</b>情绪需要时间消化。读完一个故事，留出 5 分钟安静，比连读三本有用。</li>
+        <li><b>让孩子重复</b>3-6 岁孩子要把同一个故事读 5-10 次才会"内化"——别催。</li>
+      </ul>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">🎯</span>三层交互的意义</h3>
+      <div class="pg-layers">
+        <div class="pg-layer">
+          <div class="num">1</div>
+          <div class="body">
+            <b>参与式 · 让孩子"进入"故事</b>
+            抚摸、吹气、点击唤醒——目的不是"答对"，而是<b>建立情感连接</b>：我做了一件事，故事里的小熊变好了。
+          </div>
+        </div>
+        <div class="pg-layer">
+          <div class="num l2">2</div>
+          <div class="body">
+            <b>识别式 · 让孩子"看见"情绪</b>
+            表情匹配、身体地图——孩子学会把<b>抽象情绪和身体感受连起来</b>。"生气会让肚子紧紧的"，这种躯体标记是情绪调节的基础。
+          </div>
+        </div>
+        <div class="pg-layer">
+          <div class="num l3">3</div>
+          <div class="body">
+            <b>表达式 · 让孩子"说出"感受</b>
+            "今天我的心情"、"帮小熊选一个反应"——孩子开始<b>主动用绘本说自己的事</b>。这是最终目标，也是最难的一层。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">💬</span>每个故事，读完聊点什么</h3>
+      <div class="pg-story-card">
+        <div class="who">🐻 生气的小熊</div>
+        <div class="what">"你上次什么时候也这样过？<b>当时身体里是什么感觉？</b>"——帮孩子建立"情绪→身体"的链接。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🦘 不舍的小袋鼠 · 上幼儿园</div>
+        <div class="what">"<b>妈妈下午一定来接你。</b>"——分离焦虑最需要的是<b>确定性</b>，不是"不要哭"。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🦌 害羞的小鹿 · 上台</div>
+        <div class="what">"害羞不是缺点哦——它说明你<b>在乎</b>。"——别让孩子觉得害羞需要被"治好"。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🐱 委屈的小猫 · 觉得偏心</div>
+        <div class="what">"心里酸酸的时候，<b>告诉妈妈</b>，妈妈才知道呢。"——教孩子表达，而不是压抑。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🐰 怕黑的小兔</div>
+        <div class="what">"<b>怕也是一种好情绪</b>——它在保护你。"——别说"没什么好怕的"。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🐶 想念的小狗</div>
+        <div class="what">"想念是一种<b>爱</b>。我们也可以画一张画寄给 ta 吗？"——把情绪转化为行动。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🦊 嫉妒的小狐</div>
+        <div class="what">"想要别人的东西，<b>不是坏</b>。但抢过来会让两个人都不开心。"——区分情绪和行为。</div>
+      </div>
+      <div class="pg-story-card">
+        <div class="who">🦆 紧张的小鸭 / 🐘 孤单的小象 / 🐥 开心的小鸡</div>
+        <div class="what">问 ta："<b>你身体的哪里也这样过？</b>"——身体地图比"开心吗"准确。</div>
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">⚠️</span>什么时候要注意</h3>
+      <p>这本绘本是<b>陪伴工具</b>，不是治疗。绝大多数孩子的情绪起伏都是正常发育——但有几种情况，请别只靠绘本。</p>
+      <div class="pg-warn">
+        <p><b>如果孩子……</b></p>
+        <p>· 反复执着于某一个情绪故事——可能 ta 正在<b>真实地经历这种情绪</b>。别切换，蹲下来问问。</p>
+        <p>· 拒绝所有故事并抗拒——先关掉，给一个拥抱。情绪激烈时不需要绘本。</p>
+        <p>· 持续两周以上的强烈情绪反应（极度焦虑、长时间哭闹、不愿与人接触、睡眠改变）——<b>请咨询儿童心理科医生</b>。绘本是陪伴，不是替代专业帮助。</p>
+      </div>
+    </div>
+
+    <div class="pg-card">
+      <h3><span class="ic">⏱</span>设计上的几个克制</h3>
+      <ul class="pg-list">
+        <li><b>每个故事 3-5 分钟</b>注意力只有 3-8 分钟，多了会走神。</li>
+        <li><b>4 个场景就够</b>不是"内容越多越好"。</li>
+        <li><b>所有按钮 ≥ 44px</b>3-6 岁精细动作还在发育，按钮太小会挫败。</li>
+        <li><b>只用"点"和"滑"</b>不要拖拽——他们做不到。</li>
+        <li><b>没有"答错"的惩罚</b>选错只是温柔提示，再选就好。</li>
+        <li><b>不收集任何数据</b>所有交互在本地，没有账号、没有上报。</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;color:var(--ink-soft);font-size:11px;margin-top:24px;line-height:1.8;">
+      陪伴比答案更重要 ·<br>
+      Made with care for 3-6 yrs
+    </div>
+  </div>
+</section>
+
+<!-- ============== MOOD TRANSITION OVERLAY ============== -->
+<div class="mood-transition" id="moodTransition" aria-hidden="true">
+  <span class="badge">我也是</span>
+  <div class="character" id="mtChar">🐻</div>
+  <h2 id="mtReply">我也是！</h2>
+  <div class="story-title" id="mtTitle">《故事名》</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // ============== Voice readout ==============
+  let voiceOn = true;
+  try { if (localStorage.getItem('emotionH5_voice') === '0') voiceOn = false; } catch(e) {}
+  const synth = window.speechSynthesis;
+  let chosenVoice = null;
+
+  // pick the most natural zh voice available — cloud / neural voices first, then native iOS/macOS voices
+  function pickVoice() {
+    if (!synth) return null;
+    const voices = synth.getVoices();
+    if (!voices || !voices.length) return null;
+    // bias toward warm / female voices; skip male voices like Yunxi / Yunjian
+    const preferRegexes = [
+      /Xiaoyi.*Online/i, /Xiaoxiao.*Online/i, /Xiaohan.*Online/i,  // Edge cloud neural — warmest first
+      /Xiaoyi/i, /Xiaoxiao/i, /Xiaohan/i,                          // Edge offline neural
+      /Sin-?ji/i,                                                  // macOS Cantonese, very warm
+      /Tingting/i, /Ting-Ting/i,                                   // iOS / macOS default female
+      /Mei-Jia/i,
+      /Google.*(普通话|Mandarin|Chinese|女)/i,                      // Google cloud
+      /晓伊/, /晓晓/, /晓涵/, /婷婷/, /小晓/
+    ];
+    for (const re of preferRegexes) {
+      const v = voices.find(x => re.test(x.name) && (x.lang || '').toLowerCase().startsWith('zh'));
+      if (v) return v;
+    }
+    // any high-quality cloud voice
+    const cloud = voices.find(v => (v.lang || '').toLowerCase().startsWith('zh') && /online|cloud|wavenet|natural|neural/i.test(v.name));
+    if (cloud) return cloud;
+    // last resort: first zh voice (prefer zh-CN over zh-TW/HK)
+    return voices.find(v => (v.lang || '').toLowerCase() === 'zh-cn')
+        || voices.find(v => (v.lang || '').toLowerCase().startsWith('zh'));
+  }
+
+  if (synth) {
+    // voices load async on Chrome/Edge; sync on Safari
+    synth.onvoiceschanged = () => { chosenVoice = pickVoice(); };
+    chosenVoice = pickVoice();
+  }
+
+  function refreshVoiceBtns() {
+    document.querySelectorAll('.voice-toggle').forEach(b => {
+      b.classList.toggle('off', !voiceOn);
+      b.textContent = voiceOn ? '🔊' : '🔈';
+    });
+  }
+  function setVoice(on) {
+    voiceOn = !!on;
+    try { localStorage.setItem('emotionH5_voice', on ? '1' : '0'); } catch(e) {}
+    if (!on && synth) synth.cancel();
+    refreshVoiceBtns();
+  }
+  function toggleVoice() { setVoice(!voiceOn); if (voiceOn) speak('好的，我来念给你听'); }
+
+  function cleanForSpeech(text) {
+    if (!text) return '';
+    return String(text)
+      // line breaks → natural pause (space, not period — avoids "句号 句号" double-reads)
+      .replace(/<br\s*\/?>/gi, ' ')
+      .replace(/<[^>]+>/g, '')
+      // strip quotes / brackets / book-name marks so TTS doesn't say "双引号 书名号"
+      .replace(/[“”‘’「」『』《》〈〉„‚＂＇"'`]/g, '')
+      .replace(/[【】（）\(\)\[\]]/g, '')
+      // strip emoji ranges so TTS doesn't say "笑脸表情"
+      .replace(/[\u{1F300}-\u{1FAFF}]/gu, '')
+      .replace(/[\u{2600}-\u{27BF}]/gu, '')
+      .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '')
+      .replace(/[♡❤☀✨🌿🌙💧💞🌱🎵🧡💚💗👏🦋💌🌸🌷🌻🌼💐🏫]/gu, '')
+      // collapse repeats / whitespace
+      .replace(/\s+/g, ' ')
+      // drop leading/trailing punctuation residue
+      .replace(/^[，。、：;\s]+|[，、：;\s]+$/g, '')
+      .trim();
+  }
+  function speak(text) {
+    if (!voiceOn || !synth) return;
+    const clean = cleanForSpeech(text);
+    if (!clean) return;
+    if (!chosenVoice) chosenVoice = pickVoice();
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(clean);
+    u.lang = 'zh-CN';
+    if (chosenVoice) u.voice = chosenVoice;
+    u.rate = 0.82;   // slow storybook pace — gentler
+    u.pitch = 1.18;  // slightly higher → warmer, more feminine narration
+    u.volume = 0.95;
+    u.onstart = () => document.querySelectorAll('.voice-toggle').forEach(b => b.classList.add('speaking'));
+    u.onend = u.onerror = () => document.querySelectorAll('.voice-toggle').forEach(b => b.classList.remove('speaking'));
+    synth.speak(u);
+  }
+  // populate button labels on load
+  document.addEventListener('DOMContentLoaded', refreshVoiceBtns);
+
+  // ============== Splash ==============
+  let splashDismissed = false;
+  function dismissSplash() {
+    if (splashDismissed) return;
+    splashDismissed = true;
+    const sp = document.getElementById('splash');
+    if (!sp) return;
+    sp.classList.add('hide');
+    document.body.style.overflow = '';
+    setTimeout(() => sp.remove(), 800);
+  }
+  // lock body scroll while splash is up
+  document.body.style.overflow = 'hidden';
+  // auto-dismiss after 4s — user can also tap to skip
+  window.addEventListener('load', () => {
+    setTimeout(dismissSplash, 4000);
+  });
+
+  // ============== Navigation ==============
+  const screens = {
+    home: document.getElementById('homeScreen'),
+    story: document.getElementById('storyScreen'),
+    generic: document.getElementById('genericStory'),
+    parentGuide: document.getElementById('parentGuide')
+  };
+  let lastScreen = 'home';
+  function show(name) {
+    // remember where parent guide should return to
+    const currentActive = Object.entries(screens).find(([k,el]) => el.classList.contains('active'));
+    if (currentActive && currentActive[0] !== 'parentGuide') lastScreen = currentActive[0];
+    Object.values(screens).forEach(s => s.classList.remove('active'));
+    screens[name].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    if (synth) synth.cancel();
+  }
+  let storySource = 'home'; // 'home' (grid) or 'mood' (selector at top of home) — controls scroll target
+  function startStory(source) {
+    if (source) storySource = source;
+    show('story');
+    goScene(1);
+  }
+  function goHome() {
+    show('home');
+    resetStory();
+  }
+  function backFromStory() {
+    show('home');
+    resetStory();
+    if (storySource === 'mood') {
+      // came from mood selector — show mood section at top
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'auto' }), 30);
+    } else {
+      // came from story grid — drop user back at the grid
+      setTimeout(() => {
+        const grid = document.querySelector('#homeScreen .story-grid');
+        if (!grid) return;
+        const top = grid.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      }, 30);
+    }
+  }
+
+  // ============== Mood entry ==============
+  const MOOD_MAP = {
+    happy:   { storyId: 'chick',     title: '开心的小鸡',     emoji: '🐥', reply: '我也好开心！<br>一起跳舞吧 🎵' },
+    sad:     { storyId: 'dog',       title: '想念的小狗',     emoji: '🐶', reply: '难过没关系——<br>我陪你一起想念 🧡' },
+    angry:   { storyId: 'bear',      title: '生气的小熊',     emoji: '🐻', reply: '我也会生气哦——<br>一起平静下来 🌿' },
+    scared:  { storyId: 'bunny',     title: '怕黑的小兔',     emoji: '🐰', reply: '怕也是好情绪——<br>它在保护你 🌙' },
+    shy:     { storyId: 'deer',      title: '害羞的小鹿',     emoji: '🦌', reply: '害羞也很勇敢——<br>我懂你的感觉 ✨' },
+    wronged: { storyId: 'kitten',    title: '委屈的小猫',     emoji: '🐱', reply: '心里酸酸的——<br>我们一起说出来 💧' },
+    miss:    { storyId: 'kangaroo',  title: '不舍的小袋鼠',  emoji: '🦘', reply: '想念也是一种爱 💞<br>我们一起。' },
+    lonely:  { storyId: 'elephant',  title: '孤单的小象',     emoji: '🐘', reply: '我陪你——<br>一个人也没关系 🌱' }
+  };
+
+  function pickMood(mood) {
+    const m = MOOD_MAP[mood];
+    if (!m) return;
+    const ov = document.getElementById('moodTransition');
+    document.getElementById('mtChar').textContent = m.emoji;
+    document.getElementById('mtReply').innerHTML = m.reply;
+    document.getElementById('mtTitle').textContent = `《${m.title}》`;
+    // re-trigger animations
+    ov.classList.remove('show');
+    void ov.offsetWidth;
+    ov.classList.add('show');
+    // speak the reply right when the overlay shows
+    setTimeout(() => speak(m.reply), 250);
+    setTimeout(() => {
+      ov.classList.remove('show');
+      if (m.storyId === 'bear') startStory('mood');
+      else playStory(m.storyId, 'mood');
+    }, 2400);
+  }
+
+  function openParentGuide() { show('parentGuide'); }
+  function closeParentGuide() { show(lastScreen || 'home'); }
+
+  // ============== Scene flow ==============
+  let currentScene = 1;
+  function goScene(n) {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`.scene[data-scene="${n}"]`);
+    if (target) target.classList.add('active');
+    currentScene = n;
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (n === 3) initStroke();
+    // read this scene's narration aloud
+    if (target) {
+      const narr = target.querySelector('.scene-narration');
+      if (narr) setTimeout(() => speak(narr.innerHTML), 200);
+    }
+  }
+  function updateProgress(n) {
+    document.querySelectorAll('.progress .dot').forEach(d => {
+      const step = parseInt(d.dataset.step);
+      d.classList.remove('done', 'active');
+      if (step < n) d.classList.add('done');
+      else if (step === n) d.classList.add('active');
+    });
+  }
+  function resetStory() {
+    // reset scene 1
+    document.querySelectorAll('#faceRow .face-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+    document.getElementById('continue1').classList.remove('show');
+    // reset scene 2
+    document.querySelectorAll('#bear2 .body-zone').forEach(z => z.classList.remove('found'));
+    document.querySelectorAll('#bodyHints .hint-chip').forEach(c => c.classList.remove('found'));
+    document.getElementById('continue2').classList.remove('show');
+    foundZones.clear();
+    // reset scene 3
+    document.getElementById('calmFill').style.width = '0%';
+    document.getElementById('continue3').classList.remove('show');
+    document.getElementById('strokeTrails').innerHTML = '';
+    strokeProgress = 0;
+    setBearCalmness(0);
+  }
+  function restart() { resetStory(); goScene(1); }
+
+  // ============== Toast ==============
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+    speak(msg);
+  }
+
+  // ============== Scene 1: face match ==============
+  document.querySelectorAll('#faceRow .face-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pick = btn.dataset.pick;
+      if (pick === 'angry') {
+        btn.classList.add('correct');
+        showToast('对！小熊现在很生气 🧡');
+        document.getElementById('continue1').classList.add('show');
+      } else {
+        btn.classList.add('wrong');
+        setTimeout(() => btn.classList.remove('wrong'), 500);
+        const msg = pick === 'happy'
+          ? '小熊的眉毛皱起来了，再看看？'
+          : '难过会哭出来，小熊好像不一样？';
+        showToast(msg);
+      }
+    });
+  });
+
+  // ============== Scene 2: body map ==============
+  const foundZones = new Set();
+  const zoneMessages = {
+    belly: '肚子紧紧的，像装了一个小气球',
+    fist: '拳头握得紧紧的',
+    fist2: '拳头握得紧紧的',
+    face: '脸烫烫的，热乎乎的'
+  };
+  document.querySelectorAll('#bear2 .body-zone').forEach(zone => {
+    zone.addEventListener('click', () => {
+      const z = zone.dataset.zone;
+      const key = z === 'fist2' ? 'fist' : z;
+      zone.classList.add('found');
+      if (!foundZones.has(key)) {
+        foundZones.add(key);
+        showToast(zoneMessages[z]);
+        document.querySelectorAll(`#bodyHints .hint-chip[data-zone="${key}"]`).forEach(c => c.classList.add('found'));
+      }
+      if (foundZones.size >= 3) {
+        document.getElementById('continue2').classList.add('show');
+      }
+    });
+  });
+
+  // ============== Scene 3: stroke ==============
+  let strokeProgress = 0;
+  let lastStrokePos = null;
+  let strokeInited = false;
+
+  function initStroke() {
+    if (strokeInited) return;
+    strokeInited = true;
+    const stage = document.getElementById('strokeStage');
+    const svg = document.getElementById('bear3');
+    const trails = document.getElementById('strokeTrails');
+    const hint = document.getElementById('strokeHint');
+
+    function getSvgPoint(clientX, clientY) {
+      const rect = svg.getBoundingClientRect();
+      const x = ((clientX - rect.left) / rect.width) * 260;
+      const y = ((clientY - rect.top) / rect.height) * 240;
+      return { x, y };
+    }
+    function inBackArea(p) {
+      // ellipse cx=100 cy=170 rx=42 ry=38
+      const dx = (p.x - 100) / 42;
+      const dy = (p.y - 170) / 38;
+      return dx * dx + dy * dy <= 1.2;
+    }
+    function addTrail(p) {
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', p.x);
+      c.setAttribute('cy', p.y);
+      c.setAttribute('r', 6);
+      c.setAttribute('fill', '#FFE7D1');
+      c.setAttribute('opacity', '.7');
+      trails.appendChild(c);
+      // fade and remove
+      setTimeout(() => {
+        c.style.transition = 'opacity 1s ease';
+        c.setAttribute('opacity', '0');
+        setTimeout(() => c.remove(), 1100);
+      }, 100);
+    }
+    function handleMove(clientX, clientY) {
+      const p = getSvgPoint(clientX, clientY);
+      if (!inBackArea(p)) { lastStrokePos = null; return; }
+      addTrail(p);
+      if (lastStrokePos) {
+        const dx = p.x - lastStrokePos.x;
+        const dy = p.y - lastStrokePos.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > 2) {
+          strokeProgress = Math.min(100, strokeProgress + dist * 0.5);
+          updateCalm();
+        }
+      }
+      lastStrokePos = p;
+    }
+    function updateCalm() {
+      document.getElementById('calmFill').style.width = strokeProgress + '%';
+      setBearCalmness(strokeProgress);
+      if (strokeProgress > 25 && strokeProgress < 60) {
+        hint.textContent = '小熊的呼吸慢下来了……';
+      } else if (strokeProgress >= 60 && strokeProgress < 95) {
+        hint.textContent = '快平静下来了 🌿';
+      } else if (strokeProgress >= 95) {
+        hint.textContent = '小熊感觉好多了 💚';
+        document.getElementById('continue3').classList.add('show');
+      }
+    }
+
+    // touch
+    stage.addEventListener('touchmove', e => {
+      e.preventDefault();
+      const t = e.touches[0];
+      handleMove(t.clientX, t.clientY);
+    }, { passive: false });
+    stage.addEventListener('touchend', () => { lastStrokePos = null; });
+    // mouse (for desktop testing)
+    let mouseDown = false;
+    stage.addEventListener('mousedown', e => { mouseDown = true; handleMove(e.clientX, e.clientY); });
+    stage.addEventListener('mousemove', e => { if (mouseDown) handleMove(e.clientX, e.clientY); });
+    stage.addEventListener('mouseup', () => { mouseDown = false; lastStrokePos = null; });
+    stage.addEventListener('mouseleave', () => { mouseDown = false; lastStrokePos = null; });
+  }
+
+  function setBearCalmness(progress) {
+    // progress 0-100 → bear face from sad to calm
+    const eye = document.getElementById('bearEye');
+    const mouth = document.getElementById('bearMouth');
+    const tear = document.getElementById('bearTear');
+    if (!eye) return;
+    if (progress < 30) {
+      eye.setAttribute('d', 'M62 108 Q68 105 74 108'); // sad arc
+      mouth.setAttribute('d', 'M50 128 Q56 132 62 128'); // frown
+      tear.setAttribute('opacity', '1');
+    } else if (progress < 70) {
+      eye.setAttribute('d', 'M62 107 L74 107'); // flat
+      mouth.setAttribute('d', 'M50 128 L62 128'); // neutral
+      tear.setAttribute('opacity', '.4');
+    } else {
+      eye.setAttribute('d', 'M62 108 Q68 112 74 108'); // happy crescent
+      mouth.setAttribute('d', 'M50 126 Q56 132 62 126'); // smile
+      tear.setAttribute('opacity', '0');
+    }
+  }
+
+  // ============== Prevent double-tap zoom ==============
+  let lastTap = 0;
+  document.addEventListener('touchend', e => {
+    const now = Date.now();
+    if (now - lastTap < 300) e.preventDefault();
+    lastTap = now;
+  }, { passive: false });
+
+  // ============== Generic Story Engine ==============
+  let currentStory = null;
+  let currentSceneIdx = 0;
+
+  function playStory(id, source) {
+    const story = STORIES[id];
+    if (!story) { showToast('故事还在画 🎨'); return; }
+    if (source) storySource = source;
+    currentStory = story;
+    currentSceneIdx = 0;
+    show('generic');
+    renderGenericScene();
+  }
+
+  function renderGenericScene() {
+    const scene = currentStory.scenes[currentSceneIdx];
+    const total = currentStory.scenes.length;
+    document.getElementById('gSceneTitle').textContent = `场景 ${currentSceneIdx + 1} / ${total}`;
+    document.getElementById('gNarration').innerHTML = scene.narration;
+    // Detach all old listeners on stage by replacing the element itself
+    const oldStage = document.getElementById('gStage');
+    const freshStage = oldStage.cloneNode(false);
+    oldStage.parentNode.replaceChild(freshStage, oldStage);
+    freshStage.innerHTML = scene.svg;
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = '';
+    panel.classList.remove('answered');
+    const cont = document.getElementById('gContinue');
+    cont.classList.remove('show');
+    cont.textContent = currentSceneIdx === total - 1 ? '再读一次 ↺' : '继续 →';
+
+    renderGenericProgress();
+
+    if (scene.interaction) {
+      const init = INTERACTIONS[scene.interaction.type];
+      if (init) init(scene.interaction, () => cont.classList.add('show'));
+    } else {
+      // ending scene: auto-show continue (acts as restart)
+      cont.classList.add('show');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // read this scene's narration aloud
+    setTimeout(() => speak(scene.narration), 200);
+  }
+
+  function renderGenericProgress() {
+    const prog = document.getElementById('gProgress');
+    const total = currentStory.scenes.length;
+    let html = '';
+    for (let i = 0; i < total; i++) {
+      let cls = 'dot';
+      if (i < currentSceneIdx) cls += ' done';
+      else if (i === currentSceneIdx) cls += ' active';
+      html += `<div class="${cls}"></div>`;
+    }
+    prog.innerHTML = html;
+  }
+
+  document.getElementById('gContinue').addEventListener('click', () => {
+    const total = currentStory.scenes.length;
+    if (currentSceneIdx < total - 1) {
+      currentSceneIdx++;
+      renderGenericScene();
+    } else {
+      // restart story
+      currentSceneIdx = 0;
+      renderGenericScene();
+    }
+  });
+
+  // ============== Interaction modules ==============
+  const INTERACTIONS = {
+    'face-match': initFaceMatch,
+    'body-map': initBodyMap,
+    'stroke': initGenericStroke,
+    'blow': initBlow,
+    'choice': initChoice,
+    'tap-wake': initTapWake,
+    'tilt': initTilt
+  };
+
+  function faceIconSVG(mood) {
+    const v = {
+      happy:`<circle cx="22" cy="22" r="20" fill="#FFD56B"/><circle cx="16" cy="20" r="2.2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2.2" fill="#3E2A1F"/><path d="M15 27 Q22 33 29 27" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,
+      sad:`<circle cx="22" cy="22" r="20" fill="#A8C8E8"/><circle cx="16" cy="20" r="2.2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2.2" fill="#3E2A1F"/><path d="M15 30 Q22 25 29 30" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="26" rx="1.4" ry="2.2" fill="#6BA8D8"/>`,
+      angry:`<circle cx="22" cy="22" r="20" fill="#F4A6A0"/><path d="M12 16 L20 19" stroke="#3E2A1F" stroke-width="2.4" stroke-linecap="round"/><path d="M32 16 L24 19" stroke="#3E2A1F" stroke-width="2.4" stroke-linecap="round"/><circle cx="16" cy="22" r="2" fill="#3E2A1F"/><circle cx="28" cy="22" r="2" fill="#3E2A1F"/><path d="M15 30 Q22 27 29 30" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/>`,
+      scared:`<circle cx="22" cy="22" r="20" fill="#D8CFEF"/><circle cx="16" cy="20" r="3.5" fill="#FFF" stroke="#3E2A1F" stroke-width="1.2"/><circle cx="28" cy="20" r="3.5" fill="#FFF" stroke="#3E2A1F" stroke-width="1.2"/><circle cx="16" cy="20" r="1.5" fill="#3E2A1F"/><circle cx="28" cy="20" r="1.5" fill="#3E2A1F"/><ellipse cx="22" cy="29" rx="2.4" ry="3" fill="none" stroke="#3E2A1F" stroke-width="1.8"/>`,
+      jealous:`<circle cx="22" cy="22" r="20" fill="#C8D89B"/><path d="M12 19 L20 19" stroke="#3E2A1F" stroke-width="2.2" stroke-linecap="round"/><path d="M24 19 L32 19" stroke="#3E2A1F" stroke-width="2.2" stroke-linecap="round"/><circle cx="18" cy="20" r="1.8" fill="#3E2A1F"/><circle cx="30" cy="20" r="1.8" fill="#3E2A1F"/><path d="M16 29 L28 29" stroke="#3E2A1F" stroke-width="2" stroke-linecap="round"/>`,
+      nervous:`<circle cx="22" cy="22" r="20" fill="#FFE0A8"/><circle cx="16" cy="20" r="2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2" fill="#3E2A1F"/><path d="M14 29 Q17 26 20 29 T26 29 T32 29" stroke="#3E2A1F" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="36" cy="13" rx="1.8" ry="3" fill="#7AB8E0" transform="rotate(20 36 13)"/>`,
+      lonely:`<circle cx="22" cy="22" r="20" fill="#B8B8D9"/><path d="M12 18 Q16 16 20 18" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 18 Q28 16 32 18" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M16 29 L28 29" stroke="#3E2A1F" stroke-width="2" stroke-linecap="round"/>`,
+      shy:`<circle cx="22" cy="22" r="20" fill="#FFCFD8"/><path d="M12 20 Q16 18 20 20" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 20 Q28 18 32 20" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M17 29 Q22 32 27 29" stroke="#3E2A1F" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="10" cy="26" r="3" fill="#FF9AB0" opacity=".7"/><circle cx="34" cy="26" r="3" fill="#FF9AB0" opacity=".7"/>`,
+      wronged:`<circle cx="22" cy="22" r="20" fill="#C8DFE8"/><circle cx="16" cy="20" r="2" fill="#3E2A1F"/><circle cx="28" cy="20" r="2" fill="#3E2A1F"/><ellipse cx="14" cy="25" rx="1.5" ry="3" fill="#6BA8D8"/><ellipse cx="30" cy="25" rx="1.5" ry="3" fill="#6BA8D8"/><path d="M17 31 Q22 27 27 31" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+      missing:`<circle cx="22" cy="22" r="20" fill="#A8C8E8"/><path d="M12 19 Q16 17 20 19" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 19 Q28 17 32 19" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M16 30 Q22 26 28 30" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><text x="14" y="13" font-size="8">♡</text>`,
+      calm:`<circle cx="22" cy="22" r="20" fill="#A8D8C9"/><path d="M13 20 Q16 17 19 20" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M25 20 Q28 17 31 20" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M16 28 Q22 31 28 28" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>`
+    };
+    return `<svg width="44" height="44" viewBox="0 0 44 44">${v[mood] || v.calm}</svg>`;
+  }
+
+  // -- Face Match --
+  function initFaceMatch(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="prompt-box">
+        <div class="q">${cfg.question}</div>
+        <div class="a">点一点你觉得对的表情</div>
+      </div>
+      <div class="face-row">
+        ${cfg.options.map((o,i) => `
+          <button class="face-btn" data-i="${i}">
+            ${faceIconSVG(o.mood)}
+            <span class="label">${o.label}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    panel.querySelectorAll('.face-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = +btn.dataset.i;
+        const opt = cfg.options[i];
+        if (opt.correct) {
+          btn.classList.add('correct');
+          showToast(cfg.rightToast || '对啦 🧡');
+          onDone();
+        } else {
+          btn.classList.add('wrong');
+          setTimeout(() => btn.classList.remove('wrong'), 500);
+          showToast(opt.wrongToast || cfg.wrongToast || '再看看 ?');
+        }
+      });
+    });
+  }
+
+  // -- Body Map --
+  function initBodyMap(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="prompt-box"><div class="q">${cfg.question}</div><div class="a">点一点不同的部位</div></div>
+      <div class="body-hints">
+        ${cfg.zones.map(z => `<div class="hint-chip" data-zone="${z.id}"><b>${z.name}</b>${z.hint}</div>`).join('')}
+      </div>
+    `;
+    const found = new Set();
+    const stage = document.getElementById('gStage');
+    stage.querySelectorAll('[data-zone]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', () => {
+        const z = el.dataset.zone;
+        const zone = cfg.zones.find(x => x.id === z);
+        if (!zone) return;
+        el.classList.add('found');
+        // also light up sibling glow
+        const glow = el.querySelector('.zone-glow');
+        if (glow) glow.setAttribute('opacity', '1');
+        if (!found.has(z)) {
+          found.add(z);
+          showToast(zone.toast);
+          panel.querySelectorAll(`.hint-chip[data-zone="${z}"]`).forEach(c => c.classList.add('found'));
+        }
+        if (found.size >= cfg.zones.length) onDone();
+      });
+    });
+  }
+
+  // -- Stroke (generic) --
+  function initGenericStroke(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="calm-meter"><div class="fill" id="gCalmFill"></div></div>
+      <div class="stroke-hint" id="gStrokeHint">${cfg.hint || '在小动物身上轻轻滑动 ✋'}</div>
+    `;
+    const stage = document.getElementById('gStage');
+    stage.style.touchAction = 'none';
+    stage.style.userSelect = 'none';
+    let progress = 0;
+    let lastP = null;
+    let done = false;
+
+    function moveAt(cx, cy) {
+      const r = stage.getBoundingClientRect();
+      const p = { x: cx - r.left, y: cy - r.top };
+      // simple trail
+      const trail = document.createElement('div');
+      trail.style.cssText = `position:absolute;left:${p.x}px;top:${p.y}px;width:18px;height:18px;border-radius:50%;background:#FFE7D1;opacity:.7;pointer-events:none;transform:translate(-50%,-50%);transition:opacity 1s ease;`;
+      stage.appendChild(trail);
+      setTimeout(() => trail.style.opacity = '0', 100);
+      setTimeout(() => trail.remove(), 1100);
+
+      if (lastP) {
+        const dx = p.x - lastP.x, dy = p.y - lastP.y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d > 2) {
+          progress = Math.min(100, progress + d * 0.6);
+          document.getElementById('gCalmFill').style.width = progress + '%';
+          const hintEl = document.getElementById('gStrokeHint');
+          if (progress > 30 && progress < 70) hintEl.textContent = '慢慢平静下来了……';
+          else if (progress >= 70 && progress < 95) hintEl.textContent = '快好啦 🌿';
+          // mood change via callback on character
+          if (cfg.onProgress) cfg.onProgress(progress);
+          if (progress >= 95 && !done) {
+            done = true;
+            hintEl.textContent = cfg.doneHint || '感觉好多了 💚';
+            onDone();
+          }
+        }
+      }
+      lastP = p;
+    }
+    stage.addEventListener('touchmove', e => { e.preventDefault(); const t = e.touches[0]; moveAt(t.clientX, t.clientY); }, { passive: false });
+    stage.addEventListener('touchend', () => lastP = null);
+    let down = false;
+    stage.addEventListener('mousedown', e => { down = true; moveAt(e.clientX, e.clientY); });
+    stage.addEventListener('mousemove', e => { if (down) moveAt(e.clientX, e.clientY); });
+    stage.addEventListener('mouseup', () => { down = false; lastP = null; });
+    stage.addEventListener('mouseleave', () => { down = false; lastP = null; });
+  }
+
+  // -- Blow (long-press simulation, mic optional) --
+  function initBlow(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="prompt-box"><div class="q">${cfg.question || '深呼吸——按住按钮，慢慢吹气'}</div><div class="a">长按按钮（或对着麦克风轻轻吹）</div></div>
+      <button class="blow-mic-btn" id="gBlowBtn">🌬️ &nbsp;按住吹气</button>
+      <div class="calm-meter" style="margin-top:14px;"><div class="fill" id="gBlowFill"></div></div>
+    `;
+    const btn = document.getElementById('gBlowBtn');
+    const fill = document.getElementById('gBlowFill');
+    let progress = 0;
+    let holding = false;
+    let raf = null;
+    let done = false;
+
+    function tick() {
+      if (!holding) return;
+      progress = Math.min(100, progress + 0.8);
+      fill.style.width = progress + '%';
+      // ripple ring
+      if (Math.random() < 0.15) {
+        const r = document.createElement('span');
+        r.className = 'ring';
+        btn.appendChild(r);
+        setTimeout(() => r.remove(), 1000);
+      }
+      if (cfg.onProgress) cfg.onProgress(progress);
+      if (progress >= 100 && !done) {
+        done = true;
+        showToast(cfg.doneToast || '真好，深呼吸最有用 🌿');
+        onDone();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+    function start(e) { e.preventDefault(); if (done) return; holding = true; btn.textContent = '🌬️  正在吹……'; tick(); }
+    function stop() { holding = false; if (raf) cancelAnimationFrame(raf); btn.textContent = done ? '✨  完成' : '🌬️  按住吹气'; }
+    btn.addEventListener('touchstart', start, { passive: false });
+    btn.addEventListener('touchend', stop);
+    btn.addEventListener('touchcancel', stop);
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('mouseup', stop);
+    btn.addEventListener('mouseleave', stop);
+  }
+
+  // -- Choice (re-pickable) --
+  function initChoice(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.classList.remove('answered');
+    panel.innerHTML = `
+      <div class="prompt-box"><div class="q">${cfg.question}</div><div class="a">想一想，可以换一个再继续</div></div>
+      <div class="choice-list">
+        ${cfg.options.map((o,i) => `
+          <button class="choice-btn" data-i="${i}">
+            <span class="label">${String.fromCharCode(65+i)}</span>
+            <span>${o.text}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    const origNarration = document.getElementById('gNarration').innerHTML;
+    panel.querySelectorAll('.choice-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = +btn.dataset.i;
+        const opt = cfg.options[i];
+        // clear previous picks, mark new one
+        panel.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('picked', 'dimmed'));
+        btn.classList.add('picked');
+        panel.querySelectorAll('.choice-btn').forEach(b => { if (b !== btn) b.classList.add('dimmed'); });
+        showToast(opt.feedback);
+        document.getElementById('gNarration').innerHTML = opt.followNarration || origNarration;
+        // continue button is unlocked after first pick; idempotent for re-picks
+        onDone();
+      });
+    });
+  }
+
+  // -- Tap Wake (count taps on character to brighten) --
+  function initTapWake(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="prompt-box"><div class="q">${cfg.question || '点一点，让它亮起来'}</div><div class="a">点 ${cfg.taps || 6} 下</div></div>
+      <div class="calm-meter"><div class="fill" id="gTapFill"></div></div>
+    `;
+    const stage = document.getElementById('gStage');
+    const target = stage.querySelector('[data-tap]') || stage;
+    target.style.cursor = 'pointer';
+    let count = 0;
+    const needed = cfg.taps || 6;
+    target.addEventListener('click', () => {
+      if (count >= needed) return;
+      count++;
+      const r = stage.getBoundingClientRect();
+      // sparkle effect at target
+      const t = target.getBoundingClientRect();
+      const sp = document.createElement('div');
+      sp.textContent = '✨';
+      sp.style.cssText = `position:absolute;left:${t.left - r.left + t.width/2 + (Math.random()-.5)*30}px;top:${t.top - r.top + t.height/2 + (Math.random()-.5)*30}px;pointer-events:none;font-size:20px;transition:all .8s ease;`;
+      stage.appendChild(sp);
+      setTimeout(() => { sp.style.transform = 'translateY(-30px)'; sp.style.opacity = '0'; }, 20);
+      setTimeout(() => sp.remove(), 900);
+      document.getElementById('gTapFill').style.width = (count/needed*100) + '%';
+      if (cfg.onTap) cfg.onTap(count, needed);
+      if (count >= needed) {
+        showToast(cfg.doneToast || '亮起来啦 ✨');
+        onDone();
+      }
+    });
+  }
+
+  // -- Tilt / Shake (devicemotion w/ fallback to taps) --
+  function initTilt(cfg, onDone) {
+    const panel = document.getElementById('gInteractionPanel');
+    panel.innerHTML = `
+      <div class="prompt-box"><div class="q">${cfg.question || '摇一摇手机，一起跳舞！'}</div><div class="a">没传感器？连点 ${cfg.taps || 10} 下也可以</div></div>
+      <button class="blow-mic-btn" id="gShakeBtn">🤸  摇一摇 / 点一点</button>
+      <div class="tilt-bar"><div class="fill" id="gShakeFill"></div></div>
+    `;
+    const fill = document.getElementById('gShakeFill');
+    const btn = document.getElementById('gShakeBtn');
+    let progress = 0;
+    const target = cfg.taps || 10;
+    let done = false;
+    function bump(strength) {
+      progress = Math.min(100, progress + strength);
+      fill.style.width = progress + '%';
+      const stage = document.getElementById('gStage');
+      stage.style.transform = `translateX(${(Math.random()-.5)*6}px) rotate(${(Math.random()-.5)*2}deg)`;
+      setTimeout(() => stage.style.transform = '', 120);
+      if (cfg.onProgress) cfg.onProgress(progress);
+      if (progress >= 100 && !done) {
+        done = true;
+        showToast(cfg.doneToast || '太棒啦 🎉');
+        onDone();
+      }
+    }
+    btn.addEventListener('click', () => bump(100/target));
+    // devicemotion
+    let lastAccel = 0;
+    let lastTime = 0;
+    function onMotion(e) {
+      const a = e.accelerationIncludingGravity || e.acceleration;
+      if (!a) return;
+      const total = Math.sqrt((a.x||0)**2 + (a.y||0)**2 + (a.z||0)**2);
+      const now = Date.now();
+      if (Math.abs(total - lastAccel) > 12 && now - lastTime > 200) {
+        lastTime = now;
+        bump(8);
+      }
+      lastAccel = total;
+    }
+    if (typeof DeviceMotionEvent !== 'undefined') {
+      if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        btn.addEventListener('click', () => {
+          DeviceMotionEvent.requestPermission().then(s => {
+            if (s === 'granted') window.addEventListener('devicemotion', onMotion);
+          }).catch(()=>{});
+        }, { once: true });
+      } else {
+        window.addEventListener('devicemotion', onMotion);
+      }
+    }
+    // cleanup when scene changes
+    const cleanup = () => window.removeEventListener('devicemotion', onMotion);
+    panel._cleanup = cleanup;
+  }
+
+  // ============== STORIES DATA ==============
+  const STORIES = {};
+
+  // helper to make a 240x260 svg scene
+  function gscene(inner) {
+    // Explicit width+height attrs + preserveAspectRatio: prevents iOS Safari from
+    // collapsing the SVG to 0 height when it lives inside a flex container.
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240" preserveAspectRatio="xMidYMid meet" style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;">${inner}</svg>`;
+  }
+
+  // === 不舍的小袋鼠 · 上幼儿园 ===
+  STORIES.kangaroo = {
+    title: '不舍的小袋鼠',
+    emotion: '分离焦虑',
+    scenes: [
+      {
+        narration: '幼儿园到了。妈妈说：<br>"宝宝再见，下午来接你。"',
+        svg: gscene(`
+          <defs>
+            <linearGradient id="kanG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE5EC"/><stop offset="1" stop-color="#FFCFDC"/></linearGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kanG1)" rx="20"/>
+
+          <!-- school: minimal -->
+          <g stroke="#A4456E" stroke-width="1.5" stroke-linejoin="round" fill="#E78BA5">
+            <polygon points="170,80 266,80 266,88 170,88" fill="#C8556E"/>
+            <rect x="170" y="88" width="96" height="134" rx="4"/>
+            <rect x="186" y="108" width="64" height="86" fill="#FFD6E0" rx="3"/>
+          </g>
+          <text x="218" y="158" font-size="32" text-anchor="middle">🏫</text>
+
+          <!-- MOM KANGAROO walking away -->
+          <g transform="translate(12, 92)" opacity=".9" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M42 84 Q66 100 66 130 Q54 138 44 130" fill="#B98760"/>
+            <ellipse cx="26" cy="92" rx="20" ry="36" fill="#B98760"/>
+            <ellipse cx="14" cy="128" rx="11" ry="6" fill="#B98760"/>
+            <ellipse cx="34" cy="128" rx="11" ry="6" fill="#B98760"/>
+            <ellipse cx="26" cy="40" rx="18" ry="18" fill="#B98760"/>
+            <ellipse cx="18" cy="14" rx="3.5" ry="14" fill="#B98760" transform="rotate(-10 18 14)"/>
+            <ellipse cx="34" cy="14" rx="3.5" ry="14" fill="#B98760" transform="rotate(10 34 14)"/>
+            <path d="M18 40 Q21 38 24 40" fill="none"/>
+            <path d="M28 40 Q31 38 34 40" fill="none"/>
+            <path d="M22 50 Q26 53 30 50" fill="none"/>
+            <path d="M40 60 Q60 46 68 34" stroke-width="6" fill="none"/>
+          </g>
+
+          <!-- LITTLE KANGAROO at door, looking back -->
+          <g transform="translate(102, 96)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="28" cy="142" rx="26" ry="3" fill="#000" opacity=".18" stroke="none"/>
+            <!-- tail behind, attached to body -->
+            <path d="M44 80 Q70 96 62 132 Q52 140 44 132" fill="#D6A578"/>
+            <!-- body (lower half tucked into feet) -->
+            <ellipse cx="24" cy="92" rx="22" ry="42" fill="#D6A578"/>
+            <!-- feet overlap body bottom -->
+            <ellipse cx="13" cy="132" rx="13" ry="7" fill="#D6A578"/>
+            <ellipse cx="33" cy="132" rx="13" ry="7" fill="#D6A578"/>
+            <!-- head sinks into body top -->
+            <ellipse cx="24" cy="36" rx="22" ry="22" fill="#D6A578"/>
+            <!-- ears -->
+            <ellipse cx="14" cy="6" rx="4" ry="14" fill="#D6A578" transform="rotate(-10 14 6)"/>
+            <ellipse cx="34" cy="6" rx="4" ry="14" fill="#D6A578" transform="rotate(10 34 6)"/>
+            <!-- eyes -->
+            <circle cx="16" cy="36" r="2.8" fill="#3E2A1F" stroke="none"/>
+            <circle cx="32" cy="36" r="2.8" fill="#3E2A1F" stroke="none"/>
+            <!-- mouth -->
+            <path d="M20 48 Q24 46 28 48" fill="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小袋鼠现在心里是什么感觉？',
+          options: [
+            { mood: 'happy', label: '开心', wrongToast: '看小袋鼠的嘴角，向下弯弯的呢' },
+            { mood: 'wronged', label: '不舍', correct: true },
+            { mood: 'angry', label: '生气', wrongToast: '不太像生气，更像是想哭哭呢' }
+          ],
+          rightToast: '对——这是"不舍"。想念也是爱呢 🧡'
+        }
+      },
+      {
+        narration: '心里有一个紧紧的小球，<br>慢慢摸一摸它，<br>它会变软。',
+        svg: gscene(`
+          <defs>
+            <radialGradient id="kanG2" cx=".5" cy=".4"><stop offset="0" stop-color="#FFEFE5"/><stop offset="1" stop-color="#FFD6E0"/></radialGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kanG2)" rx="20"/>
+          <ellipse cx="140" cy="226" rx="80" ry="4" fill="#000" opacity=".15"/>
+
+          <g transform="translate(110, 40)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- tail -->
+            <path d="M52 110 Q82 124 76 184 Q62 192 52 184" fill="#D6A578"/>
+            <!-- body (extends down through feet) -->
+            <ellipse cx="30" cy="128" rx="28" ry="54" fill="#D6A578"/>
+            <!-- feet overlap body bottom -->
+            <ellipse cx="14" cy="180" rx="16" ry="8" fill="#D6A578"/>
+            <ellipse cx="48" cy="180" rx="16" ry="8" fill="#D6A578"/>
+            <!-- knot inside body (preserved id) -->
+            <circle id="kanKnot" cx="30" cy="124" r="11" fill="#FF8A65" opacity=".8" stroke="none"/>
+            <!-- two paws hugging chest (on body) -->
+            <circle cx="20" cy="120" r="6" fill="#D6A578"/>
+            <circle cx="40" cy="120" r="6" fill="#D6A578"/>
+            <!-- head (sinks into body top) -->
+            <ellipse cx="30" cy="52" rx="24" ry="26" fill="#D6A578"/>
+            <ellipse cx="18" cy="14" rx="4" ry="16" fill="#D6A578" transform="rotate(-10 18 14)"/>
+            <ellipse cx="42" cy="14" rx="4" ry="16" fill="#D6A578" transform="rotate(10 42 14)"/>
+            <circle cx="21" cy="52" r="3.2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="39" cy="52" r="3.2" fill="#3E2A1F" stroke="none"/>
+            <path id="kanMouth" d="M26 64 Q30 61 34 64" fill="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'stroke',
+          hint: '用手指轻轻摸小袋鼠的胸口 💞',
+          doneHint: '心里的小球软软的，化开啦',
+          onProgress: (p) => {
+            const knot = document.getElementById('kanKnot');
+            if (knot) {
+              const scale = 1 - p/120;
+              knot.setAttribute('r', 10 * Math.max(scale, 0.1));
+              knot.setAttribute('opacity', 0.7 * Math.max(scale, 0.1));
+            }
+            const mouth = document.getElementById('kanMouth');
+            if (mouth && p > 60) {
+              mouth.setAttribute('d', 'M34 74 Q40 80 46 74');
+            }
+          }
+        }
+      },
+      {
+        narration: '老师牵起小袋鼠的手——<br>"来，我介绍新朋友给你。"',
+        svg: gscene(`
+          <defs>
+            <linearGradient id="kanG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEFE0"/><stop offset="1" stop-color="#D6EFE6"/></linearGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kanG3)" rx="20"/>
+          <ellipse cx="140" cy="232" rx="120" ry="4" fill="#000" opacity=".08"/>
+
+          <!-- TEACHER (picture-book bunny) -->
+          <g transform="translate(26, 84)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="36" cy="104" rx="24" ry="34" fill="#F4E1E1"/>
+            <ellipse cx="26" cy="136" rx="9" ry="6" fill="#F4E1E1"/>
+            <ellipse cx="46" cy="136" rx="9" ry="6" fill="#F4E1E1"/>
+            <ellipse cx="36" cy="46" rx="24" ry="24" fill="#F4E1E1"/>
+            <ellipse cx="24" cy="8" rx="5" ry="20" fill="#F4E1E1"/>
+            <ellipse cx="48" cy="8" rx="5" ry="20" fill="#F4E1E1"/>
+            <path d="M22 46 Q26 42 30 46" fill="none"/>
+            <path d="M42 46 Q46 42 50 46" fill="none"/>
+            <path d="M30 60 Q36 66 42 60" fill="none"/>
+            <!-- arm reaching out, start inside body -->
+            <path d="M52 100 Q84 112 110 116" stroke-width="9" fill="none"/>
+            <ellipse cx="110" cy="116" rx="7" ry="6" fill="#F4E1E1"/>
+          </g>
+
+          <!-- LITTLE KANGAROO -->
+          <g transform="translate(148, 112)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M40 60 Q68 76 60 122 Q48 130 40 122" fill="#D6A578"/>
+            <ellipse cx="22" cy="84" rx="20" ry="36" fill="#D6A578"/>
+            <ellipse cx="12" cy="122" rx="12" ry="7" fill="#D6A578"/>
+            <ellipse cx="32" cy="122" rx="12" ry="7" fill="#D6A578"/>
+            <ellipse cx="22" cy="28" rx="20" ry="20" fill="#D6A578"/>
+            <ellipse cx="12" cy="-2" rx="4" ry="14" fill="#D6A578" transform="rotate(-10 12 -2)"/>
+            <ellipse cx="32" cy="-2" rx="4" ry="14" fill="#D6A578" transform="rotate(10 32 -2)"/>
+            <!-- arm starting INSIDE body, reaching to teacher -->
+            <path d="M12 56 Q-8 54 -22 58" stroke-width="7" fill="none"/>
+            <circle cx="-22" cy="58" r="5" fill="#D6A578"/>
+            <circle cx="14" cy="28" r="3" fill="#3E2A1F" stroke="none"/>
+            <circle cx="30" cy="28" r="3" fill="#3E2A1F" stroke="none"/>
+            <path d="M18 40 Q22 43 26 40" fill="none"/>
+          </g>
+
+          <!-- friend in distance -->
+          <g transform="translate(228, 156) scale(.7)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="20" cy="20" r="18" fill="#FFD56B"/>
+            <circle cx="14" cy="18" r="2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="26" cy="18" r="2" fill="#3E2A1F" stroke="none"/>
+            <path d="M14 26 Q20 30 26 26" fill="none"/>
+            <path d="M34 14 L42 4" stroke-width="4"/>
+          </g>
+          <text x="240" y="44" font-size="18">🌿</text>
+          <text x="50" y="40" font-size="16">✨</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 害羞的小鹿 · 上台表演 ===
+  STORIES.deer = {
+    title: '害羞的小鹿',
+    emotion: '害羞',
+    scenes: [
+      {
+        narration: '舞台好大，灯光好亮。<br>害羞藏在身体里——<br>点一点，找找它在哪。',
+        svg: gscene(`
+          <defs>
+            <linearGradient id="deerG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3E2A4A"/><stop offset="1" stop-color="#6A4A6A"/></linearGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#deerG1)" rx="20"/>
+          <!-- stage -->
+          <rect x="0" y="194" width="280" height="50" fill="#8C5A3A"/>
+          <rect x="0" y="194" width="280" height="6" fill="#A87248"/>
+          <!-- curtain -->
+          <path d="M0 0 L0 50 Q140 70 280 50 L280 0 Z" fill="#A8483A"/>
+          <!-- spotlight -->
+          <path d="M140 0 L70 220 L210 220 Z" fill="#FFE7A3" opacity=".22"/>
+          <circle cx="140" cy="0" r="10" fill="#FFE7A3"/>
+
+          <!-- picture-book deer (side profile, 4 stick legs) -->
+          <g transform="translate(64, 64)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="76" cy="180" rx="60" ry="3" fill="#000" opacity=".2" stroke="none"/>
+
+            <!-- BACK legs (start inside body, hidden by body in top portion) -->
+            <line x1="110" y1="92" x2="110" y2="172" stroke-width="4"/>
+            <line x1="130" y1="92" x2="130" y2="172" stroke-width="4"/>
+            <!-- white tail (overlaps body) -->
+            <ellipse cx="136" cy="84" rx="5" ry="8" fill="#FFFAF0"/>
+
+            <!-- body -->
+            <ellipse cx="84" cy="88" rx="50" ry="22" fill="#D89878"/>
+            <!-- 3 white spots -->
+            <circle cx="62" cy="80" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="84" cy="74" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="106" cy="80" r="2.6" fill="#FFFAF0" stroke="none"/>
+
+            <!-- front-right leg (touches body bottom) -->
+            <line x1="76" y1="104" x2="76" y2="172" stroke-width="4"/>
+
+            <!-- HAND zone: front-left leg lifted -->
+            <g data-zone="hand" style="cursor:pointer;">
+              <circle class="zone-glow" cx="52" cy="144" r="22" fill="#FF8A65" opacity="0" stroke="none"/>
+              <line x1="62" y1="104" x2="50" y2="152" stroke-width="4"/>
+              <ellipse cx="40" cy="150" rx="2" ry="3.4" fill="#7AB8E0" transform="rotate(-15 40 150)"/>
+            </g>
+
+            <!-- HEART zone -->
+            <g data-zone="heart" style="cursor:pointer;">
+              <circle class="zone-glow" cx="56" cy="92" r="20" fill="#FF8A65" opacity="0" stroke="none"/>
+              <text x="56" y="100" font-size="22" text-anchor="middle" stroke="none">💗</text>
+            </g>
+
+            <!-- neck (connects body to head) -->
+            <path d="M50 86 Q34 70 38 48 L54 50 Q50 70 64 86 Z" fill="#D89878"/>
+
+            <!-- FACE zone -->
+            <g data-zone="face" style="cursor:pointer;">
+              <circle class="zone-glow" cx="36" cy="36" r="22" fill="#FF8A65" opacity="0" stroke="none"/>
+              <ellipse cx="36" cy="38" rx="14" ry="13" fill="#D89878"/>
+              <ellipse cx="20" cy="44" rx="9" ry="6" fill="#F2D1B0"/>
+              <circle cx="14" cy="44" r="2" fill="#3E2A1F" stroke="none"/>
+              <!-- ears overlap head -->
+              <polygon points="28,30 24,18 36,30" fill="#D89878"/>
+              <polygon points="46,30 50,18 38,30" fill="#D89878"/>
+              <!-- antlers from ear tops -->
+              <path d="M30 20 L24 4"/>
+              <path d="M30 20 L34 6"/>
+              <path d="M44 20 L50 4"/>
+              <path d="M44 20 L40 6"/>
+              <circle cx="32" cy="38" r="2.6" fill="#3E2A1F" stroke="none"/>
+              <path d="M14 48 Q18 50 22 48" fill="none"/>
+              <circle cx="24" cy="46" r="4" fill="#FF8A65" opacity=".55" stroke="none"/>
+            </g>
+          </g>
+        `),
+        interaction: {
+          type: 'body-map',
+          question: '害羞躲在哪里？',
+          zones: [
+            { id: 'face', name: '脸', hint: '红红的', toast: '脸烫烫的、红红的——害羞躲在脸上' },
+            { id: 'heart', name: '心', hint: '跳得快', toast: '心怦怦跳，像有蝴蝶在飞' },
+            { id: 'hand', name: '手', hint: '汗汗的', toast: '小手心有点汗汗的、凉凉的' }
+          ]
+        }
+      },
+      {
+        narration: '心里飞着好多小蝴蝶——<br>深呼吸，<span style="color:#FF8A65">轻轻吹一口气</span>，<br>让它们慢下来。',
+        svg: gscene(`
+          <defs>
+            <radialGradient id="deerG2" cx=".5" cy=".5"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#FFE0A8"/></radialGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#deerG2)" rx="20"/>
+          <ellipse cx="140" cy="226" rx="100" ry="4" fill="#000" opacity=".12"/>
+
+          <!-- picture-book deer, blowing breath -->
+          <g transform="translate(64, 50)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- back legs (inside body top portion) -->
+            <line x1="110" y1="92" x2="110" y2="172" stroke-width="4"/>
+            <line x1="130" y1="92" x2="130" y2="172" stroke-width="4"/>
+            <!-- tail behind body -->
+            <ellipse cx="136" cy="84" rx="5" ry="8" fill="#FFFAF0"/>
+            <!-- body -->
+            <ellipse cx="84" cy="90" rx="50" ry="22" fill="#D89878"/>
+            <circle cx="62" cy="82" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="84" cy="76" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="106" cy="82" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <!-- front legs (just touch body bottom) -->
+            <line x1="60" y1="106" x2="60" y2="172" stroke-width="4"/>
+            <line x1="76" y1="106" x2="76" y2="172" stroke-width="4"/>
+            <!-- neck -->
+            <path d="M50 88 Q34 72 38 50 L54 52 Q50 72 64 88 Z" fill="#D89878"/>
+            <!-- head -->
+            <ellipse cx="36" cy="40" rx="14" ry="13" fill="#D89878"/>
+            <ellipse cx="20" cy="46" rx="9" ry="6" fill="#F2D1B0"/>
+            <!-- O-mouth (blowing) -->
+            <ellipse cx="14" cy="48" rx="2.2" ry="2.6" fill="#7A4A2A"/>
+            <!-- ears overlap head -->
+            <polygon points="28,32 24,20 36,32" fill="#D89878"/>
+            <polygon points="46,32 50,20 38,32" fill="#D89878"/>
+            <!-- antlers from ear tops -->
+            <path d="M30 22 L24 6"/>
+            <path d="M30 22 L34 8"/>
+            <path d="M44 22 L50 6"/>
+            <path d="M44 22 L40 8"/>
+            <path d="M28 38 Q32 35 36 38" fill="none"/>
+            <circle cx="26" cy="46" r="3" fill="#FFB99A" opacity=".6" stroke="none"/>
+          </g>
+
+          <!-- breath wisps -->
+          <path d="M62 100 Q42 100 24 108" stroke="#FFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".85"/>
+          <path d="M62 108 Q40 114 14 118" stroke="#FFF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/>
+
+          <g id="deerButterflies">
+            <text class="bfly" x="100" y="40" font-size="24">🦋</text>
+            <text class="bfly" x="200" y="60" font-size="22">🦋</text>
+            <text class="bfly" x="220" y="120" font-size="22">🦋</text>
+            <text class="bfly" x="160" y="180" font-size="20">🦋</text>
+            <text class="bfly" x="240" y="180" font-size="18">🦋</text>
+          </g>
+        `),
+        interaction: {
+          type: 'blow',
+          question: '深呼吸——按住按钮，慢慢吹',
+          doneToast: '蝴蝶都飞远了，心也安静下来 🌿',
+          onProgress: (p) => {
+            const g = document.getElementById('deerButterflies');
+            if (!g) return;
+            const flies = g.querySelectorAll('.bfly');
+            flies.forEach((f, i) => {
+              const offY = (p / 100) * (-180 - i * 20);
+              const offX = (p / 100) * ((i % 2 === 0 ? -1 : 1) * (60 + i * 10));
+              f.setAttribute('transform', `translate(${offX} ${offY})`);
+              f.style.opacity = Math.max(0, 1 - p / 100);
+            });
+          }
+        }
+      },
+      {
+        narration: '跳完了——<br>原来掌声也是温暖的。<br>害羞的人也很勇敢。',
+        svg: gscene(`
+          <defs>
+            <linearGradient id="deerG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE0A8"/><stop offset="1" stop-color="#FFD0B5"/></linearGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#deerG3)" rx="20"/>
+          <!-- stage -->
+          <rect x="0" y="194" width="280" height="50" fill="#8C5A3A"/>
+          <rect x="0" y="194" width="280" height="6" fill="#A87248"/>
+          <!-- bouquet -->
+          <text x="15" y="226" font-size="22">🌸</text>
+          <text x="45" y="228" font-size="20">🌷</text>
+          <text x="75" y="226" font-size="18">🌼</text>
+          <text x="108" y="228" font-size="22">💐</text>
+          <text x="150" y="226" font-size="22">🌻</text>
+          <text x="186" y="228" font-size="20">🌷</text>
+          <text x="218" y="226" font-size="22">🌻</text>
+          <text x="252" y="228" font-size="20">🌼</text>
+
+          <!-- picture-book deer bowing -->
+          <g transform="translate(64, 64)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="76" cy="180" rx="60" ry="3" fill="#000" opacity=".2" stroke="none"/>
+            <!-- back legs inside body -->
+            <line x1="110" y1="90" x2="110" y2="172" stroke-width="4"/>
+            <line x1="130" y1="90" x2="130" y2="172" stroke-width="4"/>
+            <ellipse cx="136" cy="80" rx="5" ry="8" fill="#FFFAF0"/>
+            <ellipse cx="84" cy="88" rx="50" ry="22" fill="#D89878"/>
+            <circle cx="62" cy="78" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="84" cy="74" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <circle cx="106" cy="78" r="2.6" fill="#FFFAF0" stroke="none"/>
+            <!-- front legs bent in bow -->
+            <line x1="60" y1="104" x2="56" y2="160" stroke-width="4"/>
+            <line x1="76" y1="104" x2="80" y2="160" stroke-width="4"/>
+            <!-- neck bent forward -->
+            <path d="M50 88 Q22 88 24 64 L40 60 Q44 80 62 88 Z" fill="#D89878"/>
+            <!-- lowered head -->
+            <ellipse cx="20" cy="62" rx="14" ry="12" fill="#D89878"/>
+            <ellipse cx="8" cy="74" rx="9" ry="6" fill="#F2D1B0"/>
+            <circle cx="3" cy="74" r="2" fill="#3E2A1F" stroke="none"/>
+            <!-- ears overlap head -->
+            <polygon points="14,56 14,44 22,56" fill="#D89878"/>
+            <polygon points="28,56 30,44 22,56" fill="#D89878"/>
+            <!-- antlers from ear tops -->
+            <path d="M14 44 L8 28"/>
+            <path d="M14 44 L18 28"/>
+            <path d="M28 44 L34 28"/>
+            <path d="M28 44 L24 28"/>
+            <path d="M16 60 Q20 66 24 60" fill="none"/>
+            <path d="M2 78 Q8 82 14 78" fill="none"/>
+            <circle cx="18" cy="74" r="4" fill="#FFB99A" opacity=".65" stroke="none"/>
+          </g>
+
+          <!-- applause -->
+          <text x="22" y="64" font-size="20">👏</text>
+          <text x="232" y="68" font-size="20">👏</text>
+          <text x="20" y="124" font-size="14">✨</text>
+          <text x="248" y="124" font-size="14">✨</text>
+          <text x="140" y="44" font-size="18" text-anchor="middle">🎉</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 委屈的小猫 · 觉得爸妈偏心 ===
+  STORIES.kitten = {
+    title: '委屈的小猫',
+    emotion: '委屈',
+    scenes: [
+      {
+        narration: '妈妈一直抱着小弟弟……<br>没看见我。',
+        svg: gscene(`
+          <defs>
+            <linearGradient id="kitG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3EAFC"/><stop offset="1" stop-color="#E8DFFB"/></linearGradient>
+            <radialGradient id="momCatBody" cx=".5" cy=".4"><stop offset="0" stop-color="#EAC8AA"/><stop offset="1" stop-color="#C9A586"/></radialGradient>
+            <radialGradient id="kittenBody" cx=".5" cy=".4"><stop offset="0" stop-color="#F2D5C0"/><stop offset="1" stop-color="#D9B89C"/></radialGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kitG1)" rx="20"/>
+          <!-- sofa with cushion -->
+          <rect x="118" y="130" width="158" height="78" fill="#9B7AAE" rx="10"/>
+          <rect x="118" y="135" width="158" height="14" fill="#B89AC9" rx="6"/>
+          <rect x="112" y="138" width="22" height="64" fill="#9B7AAE" rx="6"/>
+          <rect x="262" y="138" width="22" height="64" fill="#9B7AAE" rx="6"/>
+          <!-- floor -->
+          <rect x="0" y="208" width="280" height="32" fill="#D8C8E8" opacity=".7"/>
+
+          <!-- mom (bigger cat) on sofa holding baby -->
+          <g transform="translate(140, 56)">
+            <!-- mom tail draped down -->
+            <path d="M-10 130 Q-20 150 0 168" stroke="url(#momCatBody)" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <!-- mom body -->
+            <ellipse cx="50" cy="100" rx="48" ry="50" fill="url(#momCatBody)"/>
+            <ellipse cx="50" cy="108" rx="28" ry="36" fill="#FFFAF0"/>
+            <!-- mom head -->
+            <circle cx="50" cy="44" r="32" fill="url(#momCatBody)"/>
+            <!-- triangle ears (cat-style) -->
+            <polygon points="28,28 24,4 42,22" fill="url(#momCatBody)"/>
+            <polygon points="72,28 76,4 58,22" fill="url(#momCatBody)"/>
+            <polygon points="30,22 27,14 36,20" fill="#FFC4D2"/>
+            <polygon points="70,22 73,14 64,20" fill="#FFC4D2"/>
+            <!-- gentle eyes (closed crescent — focused on baby) -->
+            <path d="M36 42 Q42 38 48 42" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M52 42 Q58 38 64 42" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- pink nose -->
+            <path d="M47 50 L53 50 L50 54 Z" fill="#FF9AB0"/>
+            <!-- small smile -->
+            <path d="M47 56 Q50 60 53 56" stroke="#3E2A1F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- whiskers -->
+            <path d="M20 52 L36 54" stroke="#A88080" stroke-width=".7"/>
+            <path d="M20 58 L36 58" stroke="#A88080" stroke-width=".7"/>
+            <path d="M80 52 L64 54" stroke="#A88080" stroke-width=".7"/>
+            <path d="M80 58 L64 58" stroke="#A88080" stroke-width=".7"/>
+            <!-- blush -->
+            <circle cx="26" cy="56" r="3" fill="#FFB99A" opacity=".55"/>
+            <circle cx="74" cy="56" r="3" fill="#FFB99A" opacity=".55"/>
+            <!-- mom's arms cradling baby -->
+            <path d="M14 100 Q4 118 24 134" stroke="url(#momCatBody)" stroke-width="16" stroke-linecap="round" fill="none"/>
+            <path d="M62 110 Q88 116 80 138" stroke="url(#momCatBody)" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <!-- baby cat in arms (sleeping) -->
+            <g transform="translate(20, 90)">
+              <ellipse cx="20" cy="28" rx="20" ry="14" fill="url(#kittenBody)"/>
+              <circle cx="20" cy="16" r="16" fill="url(#kittenBody)"/>
+              <polygon points="8,4 6,-6 14,2" fill="url(#kittenBody)"/>
+              <polygon points="32,4 34,-6 26,2" fill="url(#kittenBody)"/>
+              <polygon points="9,1 8,-3 12,1" fill="#FFC4D2"/>
+              <polygon points="31,1 32,-3 28,1" fill="#FFC4D2"/>
+              <!-- sleeping eyes (curves down) -->
+              <path d="M14 14 Q16 16 18 14" stroke="#3E2A1F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <path d="M22 14 Q24 16 26 14" stroke="#3E2A1F" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="20" cy="20" rx="1" ry=".8" fill="#FF9AB0"/>
+              <path d="M18 24 Q20 26 22 24" stroke="#3E2A1F" stroke-width="1.5" fill="none"/>
+              <!-- z mark -->
+              <text x="-2" y="0" font-size="10" fill="#3E2A1F" opacity=".5">z</text>
+            </g>
+          </g>
+
+          <!-- little kitten on the floor, alone -->
+          <g transform="translate(20, 130)">
+            <ellipse cx="40" cy="92" rx="26" ry="3" fill="#000" opacity=".15"/>
+            <!-- legs -->
+            <ellipse cx="28" cy="80" rx="7" ry="10" fill="url(#kittenBody)"/>
+            <ellipse cx="52" cy="80" rx="7" ry="10" fill="url(#kittenBody)"/>
+            <!-- tail (curling around side, sad-droop) -->
+            <path d="M62 70 Q78 80 76 60" stroke="url(#kittenBody)" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- body sitting -->
+            <ellipse cx="40" cy="60" rx="28" ry="30" fill="url(#kittenBody)"/>
+            <ellipse cx="40" cy="65" rx="16" ry="22" fill="#FFFAF0"/>
+            <!-- arms (paws together) -->
+            <ellipse cx="20" cy="62" rx="6" ry="14" fill="#D9B89C" transform="rotate(-15 20 62)"/>
+            <ellipse cx="60" cy="62" rx="6" ry="14" fill="#D9B89C" transform="rotate(15 60 62)"/>
+            <!-- head -->
+            <circle cx="40" cy="22" r="22" fill="url(#kittenBody)"/>
+            <!-- triangle ears (drooped slightly) -->
+            <polygon points="20,10 16,-6 26,4" fill="url(#kittenBody)" transform="rotate(-8 22 4)"/>
+            <polygon points="60,10 64,-6 54,4" fill="url(#kittenBody)" transform="rotate(8 58 4)"/>
+            <polygon points="21,4 19,-2 24,2" fill="#FFC4D2"/>
+            <polygon points="59,4 61,-2 56,2" fill="#FFC4D2"/>
+            <!-- wronged eyes (looking down, large with tears) -->
+            <ellipse cx="32" cy="24" rx="3" ry="3.6" fill="#3E2A1F"/>
+            <ellipse cx="48" cy="24" rx="3" ry="3.6" fill="#3E2A1F"/>
+            <circle cx="32.5" cy="22.5" r="1.1" fill="#FFF"/>
+            <circle cx="48.5" cy="22.5" r="1.1" fill="#FFF"/>
+            <!-- tears welling -->
+            <ellipse cx="28" cy="32" rx="1.5" ry="3.5" fill="#6BA8D8"/>
+            <ellipse cx="52" cy="32" rx="1.5" ry="3.5" fill="#6BA8D8"/>
+            <!-- pink nose -->
+            <path d="M38 30 L42 30 L40 33 Z" fill="#FF9AB0"/>
+            <!-- pouty wronged mouth -->
+            <path d="M36 38 Q40 35 44 38" stroke="#3E2A1F" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <!-- whiskers -->
+            <path d="M16 28 L30 30" stroke="#A88080" stroke-width=".7" stroke-linecap="round"/>
+            <path d="M16 33 L30 33" stroke="#A88080" stroke-width=".7" stroke-linecap="round"/>
+            <path d="M64 28 L50 30" stroke="#A88080" stroke-width=".7" stroke-linecap="round"/>
+            <path d="M64 33 L50 33" stroke="#A88080" stroke-width=".7" stroke-linecap="round"/>
+            <!-- blush -->
+            <circle cx="22" cy="32" r="2.5" fill="#FFB99A" opacity=".55"/>
+            <circle cx="58" cy="32" r="2.5" fill="#FFB99A" opacity=".55"/>
+          </g>
+          <text x="78" y="148" font-size="12" fill="#7A5C4A" opacity=".5">…</text>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小猫现在是什么感觉？',
+          options: [
+            { mood: 'angry', label: '生气', wrongToast: '心里有点酸酸的，不只是生气哦' },
+            { mood: 'wronged', label: '委屈', correct: true },
+            { mood: 'happy', label: '开心', wrongToast: '看眼角，亮亮的有眼泪呢' }
+          ],
+          rightToast: '对——这种"心里酸酸的"，叫委屈 💧'
+        }
+      },
+      {
+        narration: '委屈的话憋在心里，<br>会更难受……<br>小猫，要不要试试？',
+        svg: gscene(`
+          <defs>
+            <radialGradient id="kitG2" cx=".5" cy=".5"><stop offset="0" stop-color="#FFEFE0"/><stop offset="1" stop-color="#E8DFFB"/></radialGradient>
+            <radialGradient id="kittenBody2" cx=".5" cy=".4"><stop offset="0" stop-color="#F2D5C0"/><stop offset="1" stop-color="#D9B89C"/></radialGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kitG2)" rx="20"/>
+          <!-- thought bubble -->
+          <ellipse cx="190" cy="70" rx="74" ry="44" fill="#FFF" opacity=".95"/>
+          <circle cx="146" cy="106" r="9" fill="#FFF" opacity=".88"/>
+          <circle cx="128" cy="124" r="6" fill="#FFF" opacity=".78"/>
+          <circle cx="116" cy="134" r="3.5" fill="#FFF" opacity=".68"/>
+          <text x="190" y="66" font-size="13" text-anchor="middle" fill="#7A5C4A">妈妈，</text>
+          <text x="190" y="84" font-size="13" text-anchor="middle" fill="#7A5C4A">我也想被抱抱…</text>
+          <text x="142" y="60" font-size="14" fill="#FF9AB0">♡</text>
+
+          <!-- kitten center -->
+          <g transform="translate(38, 100)">
+            <ellipse cx="40" cy="124" rx="28" ry="3" fill="#000" opacity=".15"/>
+            <!-- legs -->
+            <ellipse cx="28" cy="110" rx="7" ry="10" fill="url(#kittenBody2)"/>
+            <ellipse cx="52" cy="110" rx="7" ry="10" fill="url(#kittenBody2)"/>
+            <!-- tail draped to side -->
+            <path d="M62 100 Q80 108 78 90" stroke="url(#kittenBody2)" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <!-- body sitting upright -->
+            <ellipse cx="40" cy="86" rx="30" ry="34" fill="url(#kittenBody2)"/>
+            <ellipse cx="40" cy="92" rx="18" ry="24" fill="#FFFAF0"/>
+            <!-- arms (one slightly raised, fidgeting paws) -->
+            <ellipse cx="18" cy="80" rx="6" ry="14" fill="#D9B89C" transform="rotate(-20 18 80)"/>
+            <ellipse cx="62" cy="86" rx="6" ry="14" fill="#D9B89C" transform="rotate(20 62 86)"/>
+            <!-- paws together at chest -->
+            <circle cx="36" cy="100" r="5" fill="#D9B89C"/>
+            <circle cx="44" cy="100" r="5" fill="#D9B89C"/>
+            <!-- head -->
+            <circle cx="40" cy="32" r="24" fill="url(#kittenBody2)"/>
+            <!-- ears -->
+            <polygon points="20,18 16,0 30,12" fill="url(#kittenBody2)"/>
+            <polygon points="60,18 64,0 50,12" fill="url(#kittenBody2)"/>
+            <polygon points="22,14 20,8 26,12" fill="#FFC4D2"/>
+            <polygon points="58,14 60,8 54,12" fill="#FFC4D2"/>
+            <!-- thinking face: eyes looking up/right toward thought -->
+            <ellipse cx="32" cy="32" rx="2.8" ry="3.4" fill="#3E2A1F"/>
+            <ellipse cx="48" cy="32" rx="2.8" ry="3.4" fill="#3E2A1F"/>
+            <circle cx="33" cy="30.5" r="1.1" fill="#FFF"/>
+            <circle cx="49" cy="30.5" r="1.1" fill="#FFF"/>
+            <!-- nose -->
+            <path d="M38 40 L42 40 L40 43 Z" fill="#FF9AB0"/>
+            <!-- small thoughtful mouth -->
+            <path d="M37 48 Q40 45 43 48" stroke="#3E2A1F" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <!-- whiskers -->
+            <path d="M14 38 L30 40" stroke="#A88080" stroke-width=".7"/>
+            <path d="M14 44 L30 43" stroke="#A88080" stroke-width=".7"/>
+            <path d="M66 38 L50 40" stroke="#A88080" stroke-width=".7"/>
+            <path d="M66 44 L50 43" stroke="#A88080" stroke-width=".7"/>
+            <!-- blush -->
+            <circle cx="22" cy="42" r="3" fill="#FFB99A" opacity=".55"/>
+            <circle cx="58" cy="42" r="3" fill="#FFB99A" opacity=".55"/>
+          </g>
+        `),
+        interaction: {
+          type: 'choice',
+          question: '帮小猫选一个：',
+          options: [
+            {
+              text: '走过去抱抱妈妈，告诉她"我也想被抱"',
+              feedback: '说出来啦，心里轻多了 🧡',
+              followNarration: '小猫走过去——<br>"妈妈，我也想被抱抱。"'
+            },
+            {
+              text: '躲到房间里，谁都不见',
+              feedback: '躲起来，妈妈就不知道呢',
+              followNarration: '小猫躲到房间里，<br>心里更闷了……还是要试试说出来。'
+            },
+            {
+              text: '大喊一声"哼！讨厌！"',
+              feedback: '大喊有点吓人，先说说看？',
+              followNarration: '大喊之后小猫更难受了——<br>原来"说出来"和"喊出来"不一样。'
+            }
+          ]
+        }
+      },
+      {
+        narration: '妈妈把小猫也抱进怀里——<br>"对不起呀，<br>你也是妈妈的小宝贝。"',
+        svg: gscene(`
+          <defs>
+            <radialGradient id="kitG3" cx=".5" cy=".5"><stop offset="0" stop-color="#FFEFE0"/><stop offset="1" stop-color="#FFD6E0"/></radialGradient>
+            <radialGradient id="momCatBody3" cx=".5" cy=".4"><stop offset="0" stop-color="#EAC8AA"/><stop offset="1" stop-color="#C9A586"/></radialGradient>
+            <radialGradient id="kittenBody3" cx=".5" cy=".4"><stop offset="0" stop-color="#F2D5C0"/><stop offset="1" stop-color="#D9B89C"/></radialGradient>
+          </defs>
+          <rect width="280" height="240" fill="url(#kitG3)" rx="20"/>
+          <ellipse cx="140" cy="232" rx="100" ry="4" fill="#000" opacity=".06"/>
+
+          <!-- mom hugging both kittens -->
+          <g transform="translate(60, 40)">
+            <!-- mom tail -->
+            <path d="M-12 130 Q-22 160 8 178" stroke="url(#momCatBody3)" stroke-width="14" stroke-linecap="round" fill="none"/>
+            <!-- mom body (wider since she's holding two) -->
+            <ellipse cx="80" cy="128" rx="86" ry="62" fill="url(#momCatBody3)"/>
+            <!-- mom chest fluff -->
+            <ellipse cx="80" cy="138" rx="56" ry="42" fill="#FFFAF0"/>
+            <!-- mom head -->
+            <circle cx="80" cy="48" r="36" fill="url(#momCatBody3)"/>
+            <!-- triangle ears -->
+            <polygon points="54,28 50,4 68,22" fill="url(#momCatBody3)"/>
+            <polygon points="106,28 110,4 92,22" fill="url(#momCatBody3)"/>
+            <polygon points="56,22 53,14 62,20" fill="#FFC4D2"/>
+            <polygon points="104,22 107,14 98,20" fill="#FFC4D2"/>
+            <!-- closed loving eyes -->
+            <path d="M64 46 Q70 42 76 46" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <path d="M84 46 Q90 42 96 46" stroke="#3E2A1F" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+            <!-- nose -->
+            <path d="M77 54 L83 54 L80 58 Z" fill="#FF9AB0"/>
+            <!-- warm smile -->
+            <path d="M73 62 Q80 68 87 62" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- whiskers -->
+            <path d="M48 56 L66 58" stroke="#A88080" stroke-width=".8"/>
+            <path d="M48 62 L66 62" stroke="#A88080" stroke-width=".8"/>
+            <path d="M112 56 L94 58" stroke="#A88080" stroke-width=".8"/>
+            <path d="M112 62 L94 62" stroke="#A88080" stroke-width=".8"/>
+            <!-- blush (loving warmth) -->
+            <circle cx="56" cy="62" r="5" fill="#FFB99A" opacity=".7"/>
+            <circle cx="104" cy="62" r="5" fill="#FFB99A" opacity=".7"/>
+            <!-- arms wrapping around (both) -->
+            <path d="M2 110 Q-12 144 24 168" stroke="url(#momCatBody3)" stroke-width="20" stroke-linecap="round" fill="none"/>
+            <path d="M158 110 Q172 144 136 168" stroke="url(#momCatBody3)" stroke-width="20" stroke-linecap="round" fill="none"/>
+            <!-- mom paws visible on outside -->
+            <ellipse cx="24" cy="168" rx="10" ry="7" fill="#C9A586"/>
+            <ellipse cx="136" cy="168" rx="10" ry="7" fill="#C9A586"/>
+
+            <!-- baby cat in left arm (sleeping) -->
+            <g transform="translate(20, 108)">
+              <ellipse cx="22" cy="36" rx="18" ry="12" fill="url(#kittenBody3)"/>
+              <circle cx="22" cy="22" r="17" fill="url(#kittenBody3)"/>
+              <polygon points="8,8 6,-4 16,4" fill="url(#kittenBody3)"/>
+              <polygon points="36,8 38,-4 28,4" fill="url(#kittenBody3)"/>
+              <polygon points="9,2 8,-2 13,2" fill="#FFC4D2"/>
+              <polygon points="35,2 36,-2 31,2" fill="#FFC4D2"/>
+              <!-- closed sleeping eyes -->
+              <path d="M14 20 Q17 22 20 20" stroke="#3E2A1F" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+              <path d="M24 20 Q27 22 30 20" stroke="#3E2A1F" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+              <path d="M21 26 L23 26 L22 28 Z" fill="#FF9AB0"/>
+              <path d="M20 32 Q22 34 24 32" stroke="#3E2A1F" stroke-width="1.5" fill="none"/>
+              <circle cx="14" cy="30" r="2.5" fill="#FFB99A" opacity=".7"/>
+              <circle cx="30" cy="30" r="2.5" fill="#FFB99A" opacity=".7"/>
+              <text x="-4" y="-2" font-size="10" fill="#3E2A1F" opacity=".5">z</text>
+            </g>
+
+            <!-- little kitten in right arm (relieved, eyes still wet but smiling) -->
+            <g transform="translate(82, 100)">
+              <ellipse cx="22" cy="42" rx="20" ry="14" fill="url(#kittenBody3)"/>
+              <circle cx="22" cy="24" r="20" fill="url(#kittenBody3)"/>
+              <polygon points="6,8 4,-8 14,2" fill="url(#kittenBody3)"/>
+              <polygon points="38,8 40,-8 30,2" fill="url(#kittenBody3)"/>
+              <polygon points="7,2 6,-3 12,2" fill="#FFC4D2"/>
+              <polygon points="37,2 38,-3 32,2" fill="#FFC4D2"/>
+              <!-- happy crescent eyes (relieved smile) -->
+              <path d="M14 24 Q18 28 22 24" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M24 24 Q28 28 32 24" stroke="#3E2A1F" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- one tear still drying -->
+              <ellipse cx="14" cy="32" rx="1.4" ry="2.5" fill="#7AB8E0" opacity=".7"/>
+              <!-- nose -->
+              <path d="M21 32 L25 32 L23 34 Z" fill="#FF9AB0"/>
+              <!-- big smile -->
+              <path d="M18 38 Q23 42 28 38" stroke="#3E2A1F" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+              <!-- whiskers -->
+              <path d="M4 36 L18 36" stroke="#A88080" stroke-width=".7"/>
+              <path d="M40 36 L28 36" stroke="#A88080" stroke-width=".7"/>
+              <!-- happy blush -->
+              <circle cx="10" cy="36" r="3" fill="#FFB99A" opacity=".8"/>
+              <circle cx="36" cy="36" r="3" fill="#FFB99A" opacity=".8"/>
+            </g>
+          </g>
+          <text x="34" y="44" font-size="20">💗</text>
+          <text x="232" y="58" font-size="16">✨</text>
+          <text x="28" y="220" font-size="16">🌿</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 怕黑的小兔 ===
+  STORIES.bunny = {
+    title: '怕黑的小兔',
+    emotion: '害怕',
+    scenes: [
+      {
+        narration: '晚上一个人在床上，<br>房间黑黑的……',
+        svg: gscene(`
+          <defs><linearGradient id="bunG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A1F4A"/><stop offset="1" stop-color="#4A3A6A"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#bunG1)" rx="20"/>
+          <circle cx="40" cy="30" r="1.2" fill="#FFF" opacity=".7"/>
+          <circle cx="80" cy="20" r="1" fill="#FFF" opacity=".5"/>
+          <circle cx="240" cy="25" r="1" fill="#FFF" opacity=".6"/>
+          <circle cx="140" cy="50" r="1.2" fill="#FFF" opacity=".7"/>
+          <!-- window with dim moon -->
+          <rect x="180" y="20" width="80" height="80" fill="none" stroke="#6A5A8A" stroke-width="2"/>
+          <line x1="220" y1="20" x2="220" y2="100" stroke="#6A5A8A" stroke-width="2"/>
+          <line x1="180" y1="60" x2="260" y2="60" stroke="#6A5A8A" stroke-width="2"/>
+          <circle cx="245" cy="35" r="12" fill="#FFE7A3" opacity=".25"/>
+          <!-- bed -->
+          <rect x="20" y="170" width="240" height="60" fill="#4A3A6A" rx="6"/>
+          <rect x="20" y="160" width="240" height="14" fill="#6A5A8A" rx="4"/>
+          <ellipse cx="60" cy="160" rx="30" ry="10" fill="#E8DFFB"/>
+          <path d="M100 175 Q140 168 240 175 L260 215 L20 215 Z" fill="#9B7AAE"/>
+          <!-- bunny head poking out of blanket -->
+          <g transform="translate(60, 110)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="18" cy="-2" rx="6" ry="20" fill="#F4E1E1"/>
+            <ellipse cx="38" cy="-2" rx="6" ry="20" fill="#F4E1E1"/>
+            <circle cx="28" cy="30" r="22" fill="#F4E1E1"/>
+            <circle cx="20" cy="30" r="2.8" fill="#3E2A1F" stroke="none"/>
+            <circle cx="36" cy="30" r="2.8" fill="#3E2A1F" stroke="none"/>
+            <ellipse cx="28" cy="40" rx="2.5" ry="3" fill="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小兔现在心里是什么感觉？',
+          options: [
+            { mood: 'angry', label: '生气', wrongToast: '不像生气，更像在发抖' },
+            { mood: 'scared', label: '害怕', correct: true },
+            { mood: 'happy', label: '开心', wrongToast: '黑夜里，小兔睁大了眼睛呢' }
+          ],
+          rightToast: '对。怕也是一种好情绪，它在保护我们 🌙'
+        }
+      },
+      {
+        narration: '深呼吸——<br>每吹一口气，月亮就更亮一点。',
+        svg: gscene(`
+          <defs><radialGradient id="bunG2" cx=".5" cy=".5"><stop offset="0" stop-color="#3A2F5A"/><stop offset="1" stop-color="#1F1A3A"/></radialGradient></defs>
+          <rect width="280" height="240" fill="url(#bunG2)" rx="20"/>
+          <g id="moonStars">
+            <circle class="ms" cx="40" cy="40" r="1.5" fill="#FFF" opacity=".3"/>
+            <circle class="ms" cx="240" cy="50" r="1.2" fill="#FFF" opacity=".3"/>
+            <circle class="ms" cx="60" cy="80" r="1" fill="#FFF" opacity=".3"/>
+            <circle class="ms" cx="220" cy="100" r="1.5" fill="#FFF" opacity=".3"/>
+            <circle class="ms" cx="80" cy="160" r="1" fill="#FFF" opacity=".3"/>
+            <circle class="ms" cx="200" cy="170" r="1.2" fill="#FFF" opacity=".3"/>
+          </g>
+          <circle id="bunMoon" cx="140" cy="100" r="50" fill="#FFE7A3" opacity=".3"/>
+          <circle cx="140" cy="100" r="50" fill="none" stroke="#FFE7A3" stroke-width="1" opacity=".2"/>
+          <!-- bunny silhouette in foreground -->
+          <g transform="translate(110, 130)">
+            <ellipse cx="20" cy="14" rx="5" ry="18" fill="#1A1530"/>
+            <ellipse cx="40" cy="14" rx="5" ry="18" fill="#1A1530"/>
+            <ellipse cx="30" cy="64" rx="22" ry="28" fill="#1A1530"/>
+            <circle cx="30" cy="34" r="20" fill="#1A1530"/>
+          </g>
+        `),
+        interaction: {
+          type: 'blow',
+          question: '按住按钮，慢慢吹气——',
+          doneToast: '月亮亮起来了，夜晚没那么黑啦 🌕',
+          onProgress: (p) => {
+            const moon = document.getElementById('bunMoon');
+            if (moon) moon.setAttribute('opacity', 0.3 + (p/100)*0.65);
+            document.querySelectorAll('#moonStars .ms').forEach(s => s.setAttribute('opacity', 0.3 + (p/100)*0.6));
+          }
+        }
+      },
+      {
+        narration: '月光下，小兔安心地睡着了。<br>"晚安，明天见。"',
+        svg: gscene(`
+          <defs><linearGradient id="bunG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3A2F5A"/><stop offset="1" stop-color="#9B7AAE"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#bunG3)" rx="20"/>
+          <circle cx="230" cy="50" r="25" fill="#FFE7A3" opacity=".85"/>
+          <circle cx="40" cy="60" r="1.5" fill="#FFF"/>
+          <circle cx="120" cy="40" r="1.2" fill="#FFF"/>
+          <rect x="20" y="160" width="240" height="60" fill="#7A5A8A" rx="6"/>
+          <ellipse cx="60" cy="160" rx="32" ry="10" fill="#FFE7E0"/>
+          <path d="M90 170 Q140 165 240 170 L260 210 L20 210 Z" fill="#C8A8D8"/>
+          <g transform="translate(50, 115)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="22" cy="0" rx="5" ry="16" fill="#F4E1E1" transform="rotate(-15 22 0)"/>
+            <ellipse cx="38" cy="0" rx="5" ry="16" fill="#F4E1E1" transform="rotate(15 38 0)"/>
+            <circle cx="30" cy="32" r="22" fill="#F4E1E1"/>
+            <!-- sleeping eyes (curve down) -->
+            <path d="M22 32 Q26 36 30 32" fill="none"/>
+            <path d="M32 32 Q36 36 40 32" fill="none"/>
+            <path d="M27 42 Q30 44 33 42" fill="none"/>
+          </g>
+          <text x="80" y="105" font-size="14" fill="#FFF" opacity=".7">z</text>
+          <text x="88" y="95" font-size="11" fill="#FFF" opacity=".7">z</text>
+          <text x="94" y="88" font-size="9" fill="#FFF" opacity=".5">z</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 想念的小狗 ===
+  STORIES.dog = {
+    title: '想念的小狗',
+    emotion: '难过',
+    scenes: [
+      {
+        narration: '好朋友搬走了，<br>窗外空空的，<br>小狗心里也空空的。',
+        svg: gscene(`
+          <defs><linearGradient id="dogG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6EFE6"/><stop offset="1" stop-color="#A8C8E8"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#dogG1)" rx="20"/>
+          <!-- window -->
+          <rect x="140" y="40" width="120" height="120" fill="#F0F8FF" stroke="#7A8AA0" stroke-width="3"/>
+          <line x1="200" y1="40" x2="200" y2="160" stroke="#7A8AA0" stroke-width="2"/>
+          <line x1="140" y1="100" x2="260" y2="100" stroke="#7A8AA0" stroke-width="2"/>
+          <!-- sky outside (empty) -->
+          <circle cx="220" cy="65" r="12" fill="#FFF" opacity=".7"/>
+          <circle cx="180" cy="80" r="8" fill="#FFF" opacity=".6"/>
+          <!-- distant moving truck -->
+          <rect x="200" y="130" width="18" height="10" fill="#9B7AAE" opacity=".5"/>
+          <!-- dog at window (picture-book) -->
+          <g transform="translate(40, 110)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="40" cy="80" rx="28" ry="34" fill="#E4C99A"/>
+            <circle cx="40" cy="32" r="22" fill="#E4C99A"/>
+            <!-- FLOPPY ears: tilted ellipses draping down from sides -->
+            <ellipse cx="20" cy="36" rx="8" ry="16" fill="#C8A878" transform="rotate(30 20 36)"/>
+            <ellipse cx="60" cy="36" rx="8" ry="16" fill="#C8A878" transform="rotate(-30 60 36)"/>
+            <!-- sad eyes (curve down) -->
+            <path d="M30 30 Q33 34 36 30" fill="none"/>
+            <path d="M44 30 Q47 34 50 30" fill="none"/>
+            <!-- tear -->
+            <ellipse cx="29" cy="38" rx="1.5" ry="2.8" fill="#6BA8D8" stroke="none"/>
+            <!-- nose -->
+            <ellipse cx="40" cy="40" rx="3" ry="2" fill="#3E2A1F" stroke="none"/>
+            <!-- sad mouth -->
+            <path d="M34 48 Q40 46 46 48" fill="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小狗现在的感觉是？',
+          options: [
+            { mood: 'happy', label: '开心', wrongToast: '小狗的眼睛弯弯往下，不像在笑' },
+            { mood: 'missing', label: '想念', correct: true },
+            { mood: 'angry', label: '生气', wrongToast: '想念比生气更安静一点' }
+          ],
+          rightToast: '想念是一种很温柔的难过 💧'
+        }
+      },
+      {
+        narration: '眼泪一颗一颗掉下来——<br>没关系，<br>用手指轻轻摸摸小狗。',
+        svg: gscene(`
+          <defs><radialGradient id="dogG2" cx=".5" cy=".5"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#C8E0F0"/></radialGradient></defs>
+          <rect width="280" height="240" fill="url(#dogG2)" rx="20"/>
+          <g transform="translate(95, 60)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="40" cy="108" rx="36" ry="44" fill="#E4C99A"/>
+            <circle cx="40" cy="54" r="30" fill="#E4C99A"/>
+            <!-- FLOPPY ears: rotated outward -->
+            <ellipse cx="14" cy="58" rx="10" ry="20" fill="#C8A878" transform="rotate(28 14 58)"/>
+            <ellipse cx="66" cy="58" rx="10" ry="20" fill="#C8A878" transform="rotate(-28 66 58)"/>
+            <!-- sad eyes -->
+            <path d="M28 48 Q32 52 36 48" fill="none"/>
+            <path d="M44 48 Q48 52 52 48" fill="none"/>
+            <!-- big tears (JS animates opacity) -->
+            <ellipse id="dogTear1" cx="28" cy="58" rx="2.5" ry="6" fill="#7AB8E0" stroke="none"/>
+            <ellipse id="dogTear2" cx="52" cy="58" rx="2.5" ry="6" fill="#7AB8E0" stroke="none"/>
+            <!-- nose -->
+            <ellipse cx="40" cy="60" rx="3.6" ry="2.6" fill="#3E2A1F" stroke="none"/>
+            <!-- sad mouth (JS animates d) -->
+            <path id="dogMouth" d="M34 70 Q40 67 46 70" fill="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'stroke',
+          hint: '轻轻摸一摸小狗的背 ✋',
+          doneHint: '心里慢慢暖起来了 🧡',
+          onProgress: (p) => {
+            const t1 = document.getElementById('dogTear1');
+            const t2 = document.getElementById('dogTear2');
+            if (t1) t1.setAttribute('opacity', Math.max(0, 1 - p/80));
+            if (t2) t2.setAttribute('opacity', Math.max(0, 1 - p/80));
+            const m = document.getElementById('dogMouth');
+            if (m && p > 60) m.setAttribute('d', 'M34 68 Q40 74 46 68');
+          }
+        }
+      },
+      {
+        narration: '小狗画了一张画——<br>"我会想你，<br>等你来玩。"',
+        svg: gscene(`
+          <defs><linearGradient id="dogG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEFE0"/><stop offset="1" stop-color="#D6EFE6"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#dogG3)" rx="20"/>
+          <!-- drawing paper -->
+          <rect x="50" y="70" width="180" height="140" fill="#FFF" rx="6" transform="rotate(-3 140 140)"/>
+          <g transform="translate(130, 110)">
+            <circle cx="0" cy="0" r="18" fill="#FFE7A3"/>
+            <circle cx="-15" cy="20" r="14" fill="#E4C99A"/>
+            <circle cx="15" cy="20" r="14" fill="#F4E1E1"/>
+            <text x="0" y="55" font-size="14" text-anchor="middle">♡</text>
+          </g>
+          <!-- dog happy -->
+          <g transform="translate(40, 150)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="30" cy="58" rx="22" ry="24" fill="#E4C99A"/>
+            <circle cx="30" cy="28" r="20" fill="#E4C99A"/>
+            <!-- floppy ears -->
+            <ellipse cx="12" cy="32" rx="7" ry="14" fill="#C8A878" transform="rotate(28 12 32)"/>
+            <ellipse cx="48" cy="32" rx="7" ry="14" fill="#C8A878" transform="rotate(-28 48 32)"/>
+            <!-- happy eyes -->
+            <path d="M22 24 Q25 28 28 24" fill="none"/>
+            <path d="M32 24 Q35 28 38 24" fill="none"/>
+            <!-- nose -->
+            <ellipse cx="30" cy="34" rx="2.6" ry="1.8" fill="#3E2A1F" stroke="none"/>
+            <!-- smile -->
+            <path d="M25 42 Q30 46 35 42" fill="none"/>
+          </g>
+          <text x="220" y="60" font-size="18">💌</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 嫉妒的小狐 ===
+  STORIES.fox = {
+    title: '嫉妒的小狐',
+    emotion: '嫉妒',
+    scenes: [
+      {
+        narration: '弟弟有了一个新玩具——<br>小狐狸心里酸酸的。',
+        svg: gscene(`
+          <defs><linearGradient id="foxG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF1C7"/><stop offset="1" stop-color="#FFE0A8"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#foxG1)" rx="20"/>
+          <!-- brother fox with new toy -->
+          <g transform="translate(146, 86)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- BIG bushy tail (signature) -->
+            <ellipse cx="74" cy="74" rx="14" ry="24" fill="#E08B5B" transform="rotate(30 74 74)"/>
+            <ellipse cx="84" cy="92" rx="7" ry="8" fill="#FFFAF0"/>
+            <!-- body -->
+            <ellipse cx="40" cy="86" rx="28" ry="32" fill="#E08B5B"/>
+            <!-- white belly -->
+            <ellipse cx="40" cy="92" rx="18" ry="22" fill="#FFFAF0"/>
+            <!-- head -->
+            <circle cx="40" cy="40" r="24" fill="#E08B5B"/>
+            <!-- pointy ears (clean symmetric triangles) -->
+            <polygon points="18,22 24,4 30,22" fill="#E08B5B"/>
+            <polygon points="62,22 56,4 50,22" fill="#E08B5B"/>
+            <!-- white face patch (cheeks + chin) -->
+            <ellipse cx="40" cy="50" rx="10" ry="8" fill="#FFFAF0"/>
+            <!-- nose at tip of white patch -->
+            <ellipse cx="40" cy="46" rx="2.6" ry="1.8" fill="#3E2A1F" stroke="none"/>
+            <!-- happy crescent eyes -->
+            <path d="M30 36 Q33 40 36 36" fill="none"/>
+            <path d="M44 36 Q47 40 50 36" fill="none"/>
+            <!-- smile -->
+            <path d="M36 54 Q40 57 44 54" fill="none"/>
+            <!-- toy in front -->
+            <circle cx="14" cy="100" r="12" fill="#FF8A65"/>
+            <circle cx="14" cy="100" r="5" fill="#FFD56B" stroke="none"/>
+          </g>
+
+          <!-- jealous fox watching from left -->
+          <g transform="translate(20, 114)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- big tail behind -->
+            <ellipse cx="62" cy="60" rx="11" ry="20" fill="#E08B5B" transform="rotate(30 62 60)"/>
+            <ellipse cx="70" cy="74" rx="6" ry="6" fill="#FFFAF0"/>
+            <!-- body -->
+            <ellipse cx="36" cy="72" rx="26" ry="28" fill="#E08B5B"/>
+            <!-- white belly -->
+            <ellipse cx="36" cy="78" rx="16" ry="20" fill="#FFFAF0"/>
+            <!-- head -->
+            <circle cx="36" cy="30" r="22" fill="#E08B5B"/>
+            <polygon points="16,14 22,-4 28,14" fill="#E08B5B"/>
+            <polygon points="56,14 50,-4 44,14" fill="#E08B5B"/>
+            <!-- white face patch -->
+            <ellipse cx="36" cy="38" rx="9" ry="7" fill="#FFFAF0"/>
+            <ellipse cx="36" cy="35" rx="2.4" ry="1.6" fill="#3E2A1F" stroke="none"/>
+            <!-- flat side-glance eyes (jealous) -->
+            <circle cx="30" cy="26" r="2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="42" cy="26" r="2" fill="#3E2A1F" stroke="none"/>
+            <!-- sour flat mouth -->
+            <path d="M32 44 L40 44" fill="none"/>
+          </g>
+          <text x="100" y="78" font-size="14" opacity=".6">…</text>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小狐狸现在是什么感觉？',
+          options: [
+            { mood: 'angry', label: '生气', wrongToast: '生气会更急，但小狐狸只是酸酸的' },
+            { mood: 'jealous', label: '嫉妒', correct: true },
+            { mood: 'sad', label: '难过', wrongToast: '比难过多一点想要的感觉' }
+          ],
+          rightToast: '对——心里酸酸的、也想要，这就是嫉妒'
+        }
+      },
+      {
+        narration: '小狐狸该怎么办？<br>你帮它想一想。',
+        svg: gscene(`
+          <defs><radialGradient id="foxG2" cx=".5" cy=".5"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#FFE0A8"/></radialGradient></defs>
+          <rect width="280" height="240" fill="url(#foxG2)" rx="20"/>
+          <g transform="translate(102, 50)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- big tail -->
+            <ellipse cx="80" cy="106" rx="14" ry="24" fill="#E08B5B" transform="rotate(30 80 106)"/>
+            <ellipse cx="90" cy="124" rx="7" ry="8" fill="#FFFAF0"/>
+            <!-- body -->
+            <ellipse cx="40" cy="124" rx="32" ry="46" fill="#E08B5B"/>
+            <ellipse cx="40" cy="132" rx="18" ry="32" fill="#FFFAF0"/>
+            <!-- head -->
+            <circle cx="40" cy="58" r="28" fill="#E08B5B"/>
+            <!-- pointy ears symmetric -->
+            <polygon points="18,38 24,18 30,38" fill="#E08B5B"/>
+            <polygon points="62,38 56,18 50,38" fill="#E08B5B"/>
+            <!-- white face patch -->
+            <ellipse cx="40" cy="68" rx="12" ry="9" fill="#FFFAF0"/>
+            <ellipse cx="40" cy="62" rx="3" ry="2.2" fill="#3E2A1F" stroke="none"/>
+            <!-- thinking eyes -->
+            <circle cx="33" cy="52" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="47" cy="52" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <!-- pursed mouth -->
+            <path d="M35 74 L45 74" fill="none"/>
+          </g>
+          <text x="40" y="40" font-size="20">💭</text>
+        `),
+        interaction: {
+          type: 'choice',
+          question: '帮小狐狸做个决定：',
+          options: [
+            {
+              text: '走过去说："弟弟，能让我也玩一下吗？"',
+              feedback: '说出来啦，弟弟一定愿意分享 🧡',
+              followNarration: '小狐狸鼓起勇气问——<br>弟弟笑了："来呀，一起玩！"'
+            },
+            {
+              text: '把弟弟的玩具抢过来',
+              feedback: '抢过来，两个人都不开心了',
+              followNarration: '抢过来之后，<br>弟弟哭了，小狐狸也不开心。<br>下次试试问问看吧。'
+            },
+            {
+              text: '躲到角落里，自己生闷气',
+              feedback: '闷在心里，会越闷越难受',
+              followNarration: '小狐狸躲起来后心更酸了——<br>原来说出来才能让人听见。'
+            }
+          ]
+        }
+      },
+      {
+        narration: '两只小狐狸一起玩——<br>玩具其实可以分享，<br>开心也可以。',
+        svg: gscene(`
+          <defs><linearGradient id="foxG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE0A8"/><stop offset="1" stop-color="#FFD56B"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#foxG3)" rx="20"/>
+          <!-- two happy foxes facing center -->
+          <g transform="translate(26, 84)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="78" cy="60" rx="11" ry="20" fill="#E08B5B" transform="rotate(30 78 60)"/>
+            <ellipse cx="86" cy="74" rx="6" ry="6" fill="#FFFAF0"/>
+            <ellipse cx="40" cy="76" rx="26" ry="30" fill="#E08B5B"/>
+            <ellipse cx="40" cy="82" rx="16" ry="20" fill="#FFFAF0"/>
+            <circle cx="40" cy="36" r="22" fill="#E08B5B"/>
+            <polygon points="18,18 24,0 30,18" fill="#E08B5B"/>
+            <polygon points="62,18 56,0 50,18" fill="#E08B5B"/>
+            <ellipse cx="40" cy="46" rx="10" ry="8" fill="#FFFAF0"/>
+            <ellipse cx="40" cy="42" rx="2.4" ry="1.8" fill="#3E2A1F" stroke="none"/>
+            <path d="M30 32 Q33 36 36 32" fill="none"/>
+            <path d="M44 32 Q47 36 50 32" fill="none"/>
+            <path d="M35 52 Q40 56 45 52" fill="none"/>
+          </g>
+          <g transform="translate(166, 84)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="78" cy="60" rx="11" ry="20" fill="#E08B5B" transform="rotate(30 78 60)"/>
+            <ellipse cx="86" cy="74" rx="6" ry="6" fill="#FFFAF0"/>
+            <ellipse cx="40" cy="76" rx="26" ry="30" fill="#E08B5B"/>
+            <ellipse cx="40" cy="82" rx="16" ry="20" fill="#FFFAF0"/>
+            <circle cx="40" cy="36" r="22" fill="#E08B5B"/>
+            <polygon points="18,18 24,0 30,18" fill="#E08B5B"/>
+            <polygon points="62,18 56,0 50,18" fill="#E08B5B"/>
+            <ellipse cx="40" cy="46" rx="10" ry="8" fill="#FFFAF0"/>
+            <ellipse cx="40" cy="42" rx="2.4" ry="1.8" fill="#3E2A1F" stroke="none"/>
+            <path d="M30 32 Q33 36 36 32" fill="none"/>
+            <path d="M44 32 Q47 36 50 32" fill="none"/>
+            <path d="M35 52 Q40 56 45 52" fill="none"/>
+          </g>
+          <!-- shared toy -->
+          <circle cx="140" cy="170" r="18" fill="#FF8A65" stroke="#5C3D24" stroke-width="1.5"/>
+          <circle cx="140" cy="170" r="8" fill="#FFD56B"/>
+          <text x="140" y="56" font-size="18" text-anchor="middle">✨</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 紧张的小鸭 ===
+  STORIES.duck = {
+    title: '紧张的小鸭',
+    emotion: '紧张',
+    scenes: [
+      {
+        narration: '第一次站在水边——<br>身体里好多奇怪的感觉。<br>点一点，找找它们。',
+        svg: gscene(`
+          <defs><linearGradient id="dukG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6EFE6"/><stop offset=".6" stop-color="#A8C8E8"/><stop offset="1" stop-color="#7AB8E0"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#dukG1)" rx="20"/>
+          <!-- water ripples -->
+          <ellipse cx="200" cy="200" rx="80" ry="6" fill="#FFF" opacity=".3"/>
+          <ellipse cx="180" cy="220" rx="60" ry="4" fill="#FFF" opacity=".3"/>
+          <!-- bank -->
+          <path d="M0 180 Q60 175 100 180 L100 240 L0 240 Z" fill="#D9C09B"/>
+          <!-- duck standing on bank -->
+          <g transform="translate(30, 80)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="40" cy="86" rx="34" ry="38" fill="#FFE17A"/>
+            <circle cx="40" cy="34" r="26" fill="#FFE17A"/>
+            <!-- beak overlaps head -->
+            <ellipse cx="58" cy="40" rx="11" ry="5" fill="#FF8A65"/>
+            <!-- FACE zone -->
+            <g data-zone="face" style="cursor:pointer;">
+              <circle class="zone-glow" cx="40" cy="32" r="26" fill="#FF8A65" opacity="0" stroke="none"/>
+              <circle cx="32" cy="30" r="2.5" fill="#3E2A1F" stroke="none"/>
+              <circle cx="44" cy="30" r="2.5" fill="#3E2A1F" stroke="none"/>
+              <path d="M28 46 Q31 44 34 46 T40 46 T46 46" fill="none"/>
+              <ellipse cx="58" cy="20" rx="2" ry="3.5" fill="#7AB8E0" stroke="none" transform="rotate(20 58 20)"/>
+            </g>
+            <!-- HEART zone -->
+            <g data-zone="heart" style="cursor:pointer;">
+              <circle class="zone-glow" cx="40" cy="84" r="20" fill="#FF8A65" opacity="0" stroke="none"/>
+              <text x="40" y="92" font-size="20" text-anchor="middle" stroke="none">💗</text>
+            </g>
+            <!-- LEG zone (orange legs + webbed feet) -->
+            <g data-zone="leg" style="cursor:pointer;">
+              <circle class="zone-glow" cx="40" cy="128" r="22" fill="#FF8A65" opacity="0" stroke="none"/>
+              <line x1="30" y1="120" x2="28" y2="132" stroke="#FF8A65" stroke-width="4"/>
+              <line x1="50" y1="120" x2="52" y2="132" stroke="#FF8A65" stroke-width="4"/>
+              <ellipse cx="28" cy="134" rx="9" ry="4" fill="#FF8A65"/>
+              <ellipse cx="52" cy="134" rx="9" ry="4" fill="#FF8A65"/>
+            </g>
+          </g>
+        `),
+        interaction: {
+          type: 'body-map',
+          question: '紧张藏在哪里？',
+          zones: [
+            { id: 'face', name: '脸', hint: '汗汗的', toast: '额头有点凉凉的汗水' },
+            { id: 'heart', name: '心', hint: '怦怦跳', toast: '心跳得好快，像小鼓' },
+            { id: 'leg', name: '腿', hint: '抖抖的', toast: '腿有点站不稳，软软的' }
+          ]
+        }
+      },
+      {
+        narration: '妈妈说："你比想象中勇敢。"<br>点一点小鸭的勇气星星，<br>它会越来越亮。',
+        svg: gscene(`
+          <defs><radialGradient id="dukG2" cx=".5" cy=".4"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#FFE0A8"/></radialGradient></defs>
+          <rect width="280" height="240" fill="url(#dukG2)" rx="20"/>
+          <g transform="translate(95, 50)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="40" cy="120" rx="40" ry="46" fill="#FFE17A"/>
+            <!-- feet sticking out at bottom -->
+            <line x1="30" y1="158" x2="28" y2="170" stroke="#FF8A65" stroke-width="4"/>
+            <line x1="50" y1="158" x2="52" y2="170" stroke="#FF8A65" stroke-width="4"/>
+            <ellipse cx="28" cy="172" rx="9" ry="4" fill="#FF8A65"/>
+            <ellipse cx="52" cy="172" rx="9" ry="4" fill="#FF8A65"/>
+            <!-- head -->
+            <circle cx="40" cy="50" r="32" fill="#FFE17A"/>
+            <ellipse cx="64" cy="58" rx="13" ry="6" fill="#FF8A65"/>
+            <circle cx="32" cy="48" r="3" fill="#3E2A1F" stroke="none"/>
+            <circle cx="46" cy="48" r="3" fill="#3E2A1F" stroke="none"/>
+            <path d="M32 62 Q40 66 48 62" fill="none"/>
+            <!-- courage star on chest, clickable -->
+            <g data-tap style="cursor:pointer;">
+              <circle id="duckStarBg" cx="40" cy="116" r="22" fill="#FFD56B" opacity=".3" stroke="none"/>
+              <text id="duckStar" x="40" y="124" font-size="28" text-anchor="middle" stroke="none">⭐</text>
+            </g>
+          </g>
+        `),
+        interaction: {
+          type: 'tap-wake',
+          question: '点一点小鸭的勇气星星',
+          taps: 8,
+          doneToast: '勇气满满 ✨',
+          onTap: (count, needed) => {
+            const bg = document.getElementById('duckStarBg');
+            const s = document.getElementById('duckStar');
+            if (bg) bg.setAttribute('opacity', 0.3 + (count/needed) * 0.7);
+            if (s) s.setAttribute('font-size', 28 + count * 2);
+          }
+        }
+      },
+      {
+        narration: '扑通——<br>小鸭跳下了水！<br>"原来水是软软的呀。"',
+        svg: gscene(`
+          <defs><linearGradient id="dukG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D6EFE6"/><stop offset="1" stop-color="#7AB8E0"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#dukG3)" rx="20"/>
+          <ellipse cx="140" cy="170" rx="120" ry="8" fill="#FFF" opacity=".3"/>
+          <ellipse cx="140" cy="190" rx="100" ry="6" fill="#FFF" opacity=".3"/>
+          <ellipse cx="140" cy="210" rx="80" ry="5" fill="#FFF" opacity=".2"/>
+          <g transform="translate(100, 90)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="40" cy="82" rx="40" ry="32" fill="#FFE17A"/>
+            <circle cx="40" cy="32" r="28" fill="#FFE17A"/>
+            <ellipse cx="64" cy="38" rx="13" ry="6" fill="#FF8A65"/>
+            <path d="M28 30 Q32 26 36 30" fill="none"/>
+            <path d="M44 30 Q48 26 52 30" fill="none"/>
+            <path d="M32 44 Q40 48 48 44" fill="none"/>
+            <circle cx="22" cy="40" r="3" fill="#FFB99A" opacity=".7" stroke="none"/>
+            <circle cx="58" cy="40" r="3" fill="#FFB99A" opacity=".7" stroke="none"/>
+          </g>
+          <text x="60" y="80" font-size="14">💦</text>
+          <text x="220" y="90" font-size="14">💦</text>
+          <text x="40" y="150" font-size="14">✨</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 孤单的小象 ===
+  STORIES.elephant = {
+    title: '孤单的小象',
+    emotion: '孤独',
+    scenes: [
+      {
+        narration: '大家都在玩，<br>没有人叫我……',
+        svg: gscene(`
+          <defs><linearGradient id="eleG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E8DFFB"/><stop offset="1" stop-color="#C8BFE8"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#eleG1)" rx="20"/>
+          <!-- distant friends -->
+          <g transform="translate(170, 80)" opacity=".6">
+            <circle cx="20" cy="40" r="14" fill="#FFD56B"/>
+            <circle cx="50" cy="40" r="14" fill="#F4A6A0"/>
+            <circle cx="80" cy="40" r="14" fill="#A8D8C9"/>
+            <text x="50" y="20" font-size="10" text-anchor="middle">嘻嘻</text>
+          </g>
+          <!-- lonely elephant -->
+          <g transform="translate(40, 84)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- BIG floppy ears -->
+            <ellipse cx="14" cy="48" rx="16" ry="22" fill="#A8B5C9" transform="rotate(-10 14 48)"/>
+            <ellipse cx="86" cy="48" rx="16" ry="22" fill="#A8B5C9" transform="rotate(10 86 48)"/>
+            <!-- body -->
+            <ellipse cx="50" cy="92" rx="42" ry="38" fill="#B8C5D9"/>
+            <!-- 4 leg stubs -->
+            <ellipse cx="22" cy="128" rx="8" ry="9" fill="#B8C5D9"/>
+            <ellipse cx="42" cy="130" rx="8" ry="9" fill="#B8C5D9"/>
+            <ellipse cx="58" cy="130" rx="8" ry="9" fill="#B8C5D9"/>
+            <ellipse cx="78" cy="128" rx="8" ry="9" fill="#B8C5D9"/>
+            <!-- head -->
+            <circle cx="50" cy="46" r="28" fill="#B8C5D9"/>
+            <!-- TRUNK with dark outline (double stroke) — hangs out past body -->
+            <path d="M50 64 Q50 96 64 110 Q78 118 74 132" stroke="#5C3D24" stroke-width="17" fill="none" stroke-linecap="round"/>
+            <path d="M50 64 Q50 96 64 110 Q78 118 74 132" stroke="#B8C5D9" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <!-- sad eye dots -->
+            <circle cx="40" cy="42" r="2.6" fill="#3E2A1F" stroke="none"/>
+            <circle cx="60" cy="42" r="2.6" fill="#3E2A1F" stroke="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'face-match',
+          question: '小象现在心里是？',
+          options: [
+            { mood: 'lonely', label: '孤单', correct: true },
+            { mood: 'angry', label: '生气', wrongToast: '小象只是安安静静的，没有生气' },
+            { mood: 'happy', label: '开心', wrongToast: '小象一个人，并不开心呢' }
+          ],
+          rightToast: '对——这种感觉叫孤单'
+        }
+      },
+      {
+        narration: '试试看——<br>点一点小象的鼻子，<br>勇敢打个招呼！',
+        svg: gscene(`
+          <defs><linearGradient id="eleG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#E8DFFB"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#eleG2)" rx="20"/>
+          <g transform="translate(70, 40)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="22" cy="60" rx="18" ry="24" fill="#A8B5C9" transform="rotate(-10 22 60)"/>
+            <ellipse cx="98" cy="60" rx="18" ry="24" fill="#A8B5C9" transform="rotate(10 98 60)"/>
+            <!-- body -->
+            <ellipse cx="60" cy="120" rx="48" ry="42" fill="#B8C5D9"/>
+            <!-- 4 leg stubs -->
+            <ellipse cx="28" cy="158" rx="9" ry="10" fill="#B8C5D9"/>
+            <ellipse cx="50" cy="160" rx="9" ry="10" fill="#B8C5D9"/>
+            <ellipse cx="70" cy="160" rx="9" ry="10" fill="#B8C5D9"/>
+            <ellipse cx="92" cy="158" rx="9" ry="10" fill="#B8C5D9"/>
+            <!-- head -->
+            <circle cx="60" cy="58" r="34" fill="#B8C5D9"/>
+            <!-- trunk (JS animates both outline + inner path) -->
+            <g data-tap style="cursor:pointer;">
+              <path id="eleTrunkOutline" d="M60 80 Q60 104 80 114 Q92 118 90 128" stroke="#5C3D24" stroke-width="21" fill="none" stroke-linecap="round"/>
+              <path id="eleTrunk" d="M60 80 Q60 104 80 114 Q92 118 90 128" stroke="#B8C5D9" stroke-width="18" fill="none" stroke-linecap="round"/>
+              <circle cx="90" cy="128" r="22" fill="transparent" stroke="none"/>
+            </g>
+            <!-- eyes -->
+            <circle cx="48" cy="56" r="2.6" fill="#3E2A1F" stroke="none"/>
+            <circle cx="72" cy="56" r="2.6" fill="#3E2A1F" stroke="none"/>
+          </g>
+        `),
+        interaction: {
+          type: 'tap-wake',
+          question: '点小象的鼻子！',
+          taps: 5,
+          doneToast: '鼻子卷起来啦——朋友看见啦 🐘',
+          onTap: (count, needed) => {
+            const t = document.getElementById('eleTrunk');
+            const o = document.getElementById('eleTrunkOutline');
+            if (!t) return;
+            const ratio = count / needed;
+            const newD = `M60 80 Q60 ${104 - ratio*40} ${80 - ratio*10} ${114 - ratio*50} Q${92 - ratio*20} ${118 - ratio*70} ${90 - ratio*30} ${128 - ratio*90}`;
+            t.setAttribute('d', newD);
+            if (o) o.setAttribute('d', newD);
+          }
+        }
+      },
+      {
+        narration: '"嘿，一起玩吧！"<br>原来大家也很想认识小象。',
+        svg: gscene(`
+          <defs><linearGradient id="eleG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE0A8"/><stop offset="1" stop-color="#D6EFE6"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#eleG3)" rx="20"/>
+          <!-- friend 1 (yellow) -->
+          <g transform="translate(22, 122)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="22" cy="22" r="20" fill="#FFD56B"/>
+            <circle cx="16" cy="20" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="28" cy="20" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <path d="M16 28 Q22 32 28 28" fill="none"/>
+          </g>
+          <!-- elephant (happy + trunk curled up) -->
+          <g transform="translate(96, 82)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="44" rx="14" ry="20" fill="#A8B5C9" transform="rotate(-10 12 44)"/>
+            <ellipse cx="68" cy="44" rx="14" ry="20" fill="#A8B5C9" transform="rotate(10 68 44)"/>
+            <ellipse cx="40" cy="88" rx="34" ry="34" fill="#B8C5D9"/>
+            <!-- 4 small leg stubs -->
+            <ellipse cx="18" cy="118" rx="7" ry="8" fill="#B8C5D9"/>
+            <ellipse cx="34" cy="120" rx="7" ry="8" fill="#B8C5D9"/>
+            <ellipse cx="46" cy="120" rx="7" ry="8" fill="#B8C5D9"/>
+            <ellipse cx="62" cy="118" rx="7" ry="8" fill="#B8C5D9"/>
+            <circle cx="40" cy="42" r="26" fill="#B8C5D9"/>
+            <!-- trunk curling up (greeting!) with dark outline -->
+            <path d="M40 60 Q44 80 60 70 Q66 64 60 56" stroke="#5C3D24" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M40 60 Q44 80 60 70 Q66 64 60 56" stroke="#B8C5D9" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <!-- happy crescent eyes -->
+            <path d="M30 38 Q33 42 36 38" fill="none"/>
+            <path d="M44 38 Q47 42 50 38" fill="none"/>
+          </g>
+          <!-- friend 2 (green) -->
+          <g transform="translate(222, 122)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="22" cy="22" r="20" fill="#A8D8C9"/>
+            <circle cx="16" cy="20" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <circle cx="28" cy="20" r="2.2" fill="#3E2A1F" stroke="none"/>
+            <path d="M16 28 Q22 32 28 28" fill="none"/>
+          </g>
+          <text x="140" y="208" font-size="16" text-anchor="middle">🎈</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // === 开心的小鸡 ===
+  STORIES.chick = {
+    title: '开心的小鸡',
+    emotion: '喜悦',
+    scenes: [
+      {
+        narration: '早上的太阳暖暖的——<br>点一点小鸡，<br>叫它起床！',
+        svg: gscene(`
+          <defs><linearGradient id="chiG1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE0A8"/><stop offset="1" stop-color="#FFD56B"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#chiG1)" rx="20"/>
+          <circle id="chickSun" cx="240" cy="48" r="22" fill="#FFE7A3" opacity=".55"/>
+          <g id="chickGroup" transform="translate(105, 110)" data-tap style="cursor:pointer;" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- single round body+head -->
+            <circle cx="35" cy="32" r="32" fill="#FFE17A"/>
+            <!-- wings sticking out of body sides -->
+            <ellipse cx="6" cy="40" rx="6" ry="14" fill="#FFD56B"/>
+            <ellipse cx="64" cy="40" rx="6" ry="14" fill="#FFD56B"/>
+            <!-- beak (ellipse, soft) -->
+            <ellipse cx="54" cy="36" rx="9" ry="5" fill="#FF8A65"/>
+            <!-- legs -->
+            <line x1="30" y1="62" x2="28" y2="74" stroke="#FF8A65" stroke-width="4"/>
+            <line x1="40" y1="62" x2="42" y2="74" stroke="#FF8A65" stroke-width="4"/>
+            <!-- closed sleeping eyes -->
+            <g id="chickEyesClosed" style="transition: opacity .3s ease;">
+              <path d="M22 26 Q26 30 30 26" fill="none"/>
+              <path d="M40 26 Q44 30 48 26" fill="none"/>
+            </g>
+            <!-- open awake eyes (hidden initially) -->
+            <g id="chickEyesOpen" opacity="0" style="transition: opacity .3s ease;">
+              <circle cx="26" cy="24" r="3" fill="#3E2A1F" stroke="none"/>
+              <circle cx="44" cy="24" r="3" fill="#3E2A1F" stroke="none"/>
+            </g>
+            <!-- happy mouth (appears when awake) -->
+            <path id="chickMouth" d="M30 44 Q35 48 40 44" fill="none" opacity="0" style="transition: opacity .3s ease;"/>
+            <!-- cheek blush (appears when awake) -->
+            <circle id="chickBlush1" cx="14" cy="38" r="3" fill="#FFB99A" opacity="0" stroke="none" style="transition: opacity .3s ease;"/>
+            <circle id="chickBlush2" cx="56" cy="38" r="3" fill="#FFB99A" opacity="0" stroke="none" style="transition: opacity .3s ease;"/>
+          </g>
+          <!-- sleeping z (fades out as chick wakes) -->
+          <g id="chickZ" style="transition: opacity .3s ease;">
+            <text x="184" y="120" font-size="20" fill="#3E2A1F" opacity=".55">z</text>
+            <text x="196" y="100" font-size="15" fill="#3E2A1F" opacity=".45">z</text>
+            <text x="206" y="84" font-size="11" fill="#3E2A1F" opacity=".35">z</text>
+          </g>
+          <!-- awake sparkles (appear when chick wakes) -->
+          <g id="chickAwake" opacity="0" style="transition: opacity .4s ease;">
+            <text x="184" y="118" font-size="20">✨</text>
+            <text x="60" y="90" font-size="16">🎵</text>
+          </g>
+        `),
+        interaction: {
+          type: 'tap-wake',
+          question: '点一点小鸡，喊它起床！',
+          taps: 5,
+          doneToast: '叽叽——小鸡醒啦 ☀️',
+          onTap: (count, needed) => {
+            const p = count / needed; // 0..1
+            const set = (id, op) => {
+              const el = document.getElementById(id);
+              if (el) el.setAttribute('opacity', op);
+            };
+            // gradual fade: closed eyes & z out, open eyes in
+            set('chickEyesClosed', Math.max(0, 1 - p * 1.4));
+            set('chickEyesOpen',   Math.min(1, p * 1.6));
+            set('chickZ',          Math.max(0, 1 - p * 1.6));
+            // mouth + blush appear in second half
+            const late = Math.max(0, (p - 0.4) / 0.6);
+            set('chickMouth',  Math.min(1, late));
+            set('chickBlush1', Math.min(1, late * .9));
+            set('chickBlush2', Math.min(1, late * .9));
+            // sun brightens
+            const sun = document.getElementById('chickSun');
+            if (sun) sun.setAttribute('opacity', 0.55 + p * 0.45);
+            // sparkles on final tap
+            if (p >= 1) set('chickAwake', 1);
+            // little bounce on each tap
+            const g = document.getElementById('chickGroup');
+            if (g) {
+              g.setAttribute('transform', 'translate(105, 104)');
+              setTimeout(() => g.setAttribute('transform', 'translate(105, 110)'), 140);
+            }
+          }
+        }
+      },
+      {
+        narration: '"摇一摇手机——<br>小鸡也会跟着跳！"',
+        svg: gscene(`
+          <defs><radialGradient id="chiG2" cx=".5" cy=".5"><stop offset="0" stop-color="#FFF6EC"/><stop offset="1" stop-color="#FFD56B"/></radialGradient></defs>
+          <rect width="280" height="240" fill="url(#chiG2)" rx="20"/>
+          <g transform="translate(100, 80)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- single round chick body -->
+            <circle cx="40" cy="38" r="36" fill="#FFE17A"/>
+            <!-- wings sticking out, raised for dance -->
+            <ellipse cx="6" cy="44" rx="6" ry="16" fill="#FFD56B" transform="rotate(-30 6 44)"/>
+            <ellipse cx="74" cy="44" rx="6" ry="16" fill="#FFD56B" transform="rotate(30 74 44)"/>
+            <!-- beak (ellipse) -->
+            <ellipse cx="60" cy="42" rx="10" ry="5" fill="#FF8A65"/>
+            <!-- eyes -->
+            <circle cx="30" cy="32" r="3" fill="#3E2A1F" stroke="none"/>
+            <circle cx="46" cy="32" r="3" fill="#3E2A1F" stroke="none"/>
+            <!-- happy smile -->
+            <path d="M30 48 Q40 54 48 48" fill="none"/>
+            <!-- legs -->
+            <line x1="30" y1="72" x2="28" y2="86" stroke="#FF8A65" stroke-width="4"/>
+            <line x1="50" y1="72" x2="52" y2="86" stroke="#FF8A65" stroke-width="4"/>
+          </g>
+          <text x="40" y="50" font-size="18">🎵</text>
+          <text x="220" y="60" font-size="16">🎶</text>
+          <text x="50" y="200" font-size="14">✨</text>
+          <text x="220" y="200" font-size="14">✨</text>
+        `),
+        interaction: {
+          type: 'tilt',
+          question: '摇一摇手机，让小鸡跳舞！',
+          taps: 8,
+          doneToast: '跳得真好 🎉'
+        }
+      },
+      {
+        narration: '阳光、风、好朋友——<br>"今天真是开心的一天！"',
+        svg: gscene(`
+          <defs><linearGradient id="chiG3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE17A"/><stop offset="1" stop-color="#A8D8C9"/></linearGradient></defs>
+          <rect width="280" height="240" fill="url(#chiG3)" rx="20"/>
+          <circle cx="50" cy="50" r="22" fill="#FFE7A3"/>
+          <g transform="translate(90, 90)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="40" cy="40" r="40" fill="#FFE17A"/>
+            <!-- wings sticking out at sides -->
+            <ellipse cx="2" cy="48" rx="6" ry="16" fill="#FFD56B" transform="rotate(-20 2 48)"/>
+            <ellipse cx="78" cy="48" rx="6" ry="16" fill="#FFD56B" transform="rotate(20 78 48)"/>
+            <!-- beak (ellipse) -->
+            <ellipse cx="62" cy="44" rx="10" ry="5" fill="#FF8A65"/>
+            <!-- happy crescent eyes -->
+            <path d="M26 32 Q30 36 34 32" fill="none"/>
+            <path d="M44 32 Q48 36 52 32" fill="none"/>
+            <!-- big smile -->
+            <path d="M30 50 Q40 58 48 50" fill="none"/>
+            <!-- blush -->
+            <circle cx="14" cy="44" r="3" fill="#FFB99A" opacity=".7" stroke="none"/>
+            <circle cx="66" cy="44" r="3" fill="#FFB99A" opacity=".7" stroke="none"/>
+            <!-- legs -->
+            <line x1="30" y1="78" x2="28" y2="92" stroke="#FF8A65" stroke-width="4"/>
+            <line x1="50" y1="78" x2="52" y2="92" stroke="#FF8A65" stroke-width="4"/>
+          </g>
+          <text x="220" y="80" font-size="16">🌸</text>
+          <text x="40" y="200" font-size="16">🌼</text>
+          <text x="220" y="200" font-size="18">🎵</text>
+          <text x="140" y="40" font-size="18" text-anchor="middle">✨</text>
+        `),
+        interaction: null
+      }
+    ]
+  };
+
+  // ============== Locked story cards (fallback) ==============
+  document.querySelectorAll('.story-card.locked').forEach(card => {
+    card.addEventListener('click', () => {
+      showToast('这个故事还在画 🎨 敬请期待');
+    });
+  });
+</script>
+
+</body>
+</html>
