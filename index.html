@@ -316,7 +316,7 @@
   @keyframes load { from { transform: scaleX(0); } to { transform: scaleX(.55); } }
 
   .scene {
-    padding: 12px 20px 40px;
+    padding: 10px 20px 20px;
     display: none;
     animation: sceneIn .6s ease;
   }
@@ -332,16 +332,16 @@
     margin-bottom: 4px;
   }
   .scene-narration {
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 18px;
+    font-size: 17px;
+    line-height: 1.45;
+    margin-bottom: 8px;
     letter-spacing: .03em;
   }
   .stage-box {
     background: linear-gradient(180deg, #FFFFFF 0%, #FFF6EC 100%);
     border-radius: var(--r);
-    padding: 20px;
-    min-height: 280px;
+    padding: 12px;
+    min-height: 190px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -350,10 +350,10 @@
     overflow: hidden;
   }
   .prompt-box {
-    margin-top: 18px;
+    margin-top: 10px;
     background: #FFF;
     border-radius: 16px;
-    padding: 16px 18px;
+    padding: 12px 16px;
     box-shadow: var(--shadow);
   }
   .prompt-box .q { font-size: 16px; color: var(--ink); line-height: 1.5; }
@@ -362,21 +362,21 @@
   /* Scene 1: face picker */
   .face-row {
     display: flex;
-    gap: 14px;
-    margin-top: 18px;
+    gap: 10px;
+    margin-top: 10px;
     justify-content: space-between;
   }
   .face-btn {
     flex: 1;
     aspect-ratio: 1;
     background: #FFF;
-    border-radius: 24px;
+    border-radius: 20px;
     box-shadow: var(--shadow);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    gap: 4px;
+    gap: 3px;
     transition: transform .15s ease;
-    min-height: 92px;
+    min-height: 76px;
   }
   .face-btn:active { transform: scale(.95); }
   .face-btn.correct {
@@ -484,9 +484,9 @@
 
   /* Continue button */
   .continue {
-    margin-top: 18px;
+    margin-top: 10px;
     width: 100%;
-    height: 50px;
+    height: 44px;
     background: var(--ink);
     color: #FFF;
     border-radius: 14px;
@@ -1760,8 +1760,8 @@
   // ============== Scene flow ==============
   let currentScene = 1;
   function goScene(n) {
-    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-    const target = document.querySelector(`.scene[data-scene="${n}"]`);
+    document.querySelectorAll('#storyScreen .scene').forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`#storyScreen .scene[data-scene="${n}"]`);
     if (target) target.classList.add('active');
     currentScene = n;
     updateProgress(n);
@@ -1774,7 +1774,7 @@
     }
   }
   function updateProgress(n) {
-    document.querySelectorAll('.progress .dot').forEach(d => {
+    document.querySelectorAll('#storyScreen .progress .dot').forEach(d => {
       const step = parseInt(d.dataset.step);
       d.classList.remove('done', 'active');
       if (step < n) d.classList.add('done');
@@ -1984,11 +1984,10 @@
     const total = currentStory.scenes.length;
     document.getElementById('gSceneTitle').textContent = `场景 ${currentSceneIdx + 1} / ${total}`;
     document.getElementById('gNarration').innerHTML = scene.narration;
-    // Detach all old listeners on stage by replacing the element itself
-    const oldStage = document.getElementById('gStage');
-    const freshStage = oldStage.cloneNode(false);
-    oldStage.parentNode.replaceChild(freshStage, oldStage);
-    freshStage.innerHTML = scene.svg;
+    // Set new SVG content
+    const stage = document.getElementById('gStage');
+    if (!stage) return;
+    stage.innerHTML = scene.svg;
     const panel = document.getElementById('gInteractionPanel');
     panel.innerHTML = '';
     panel.classList.remove('answered');
@@ -2355,7 +2354,7 @@
   function gscene(inner) {
     // Explicit width+height attrs + preserveAspectRatio: prevents iOS Safari from
     // collapsing the SVG to 0 height when it lives inside a flex container.
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 240" width="280" height="240" preserveAspectRatio="xMidYMid meet" style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;">${inner}</svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 210" width="280" height="210" preserveAspectRatio="xMidYMid meet" style="width:100%;max-width:320px;height:auto;display:block;margin:0 auto;">${inner}</svg>`;
   }
 
   // === 不舍的小袋鼠 · 上幼儿园 ===
