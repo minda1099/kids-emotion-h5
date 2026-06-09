@@ -1653,8 +1653,8 @@
     const u = new SpeechSynthesisUtterance(clean);
     u.lang = 'zh-CN';
     if (chosenVoice) u.voice = chosenVoice;
-    u.rate = 0.82;   // slow storybook pace — gentler
-    u.pitch = 1.18;  // slightly higher → warmer, more feminine narration
+    u.rate = 0.82;
+    u.pitch = 1.18;
     u.volume = 0.95;
     u.onstart = () => document.querySelectorAll('.voice-toggle').forEach(b => b.classList.add('speaking'));
     u.onend = u.onerror = () => document.querySelectorAll('.voice-toggle').forEach(b => b.classList.remove('speaking'));
@@ -1748,13 +1748,10 @@
     ov.classList.remove('show');
     void ov.offsetWidth;
     ov.classList.add('show');
-    // speak the reply right when the overlay shows
-    setTimeout(() => speak(m.reply), 250);
-    setTimeout(() => {
-      ov.classList.remove('show');
-      if (m.storyId === 'bear') startStory('mood');
-      else playStory(m.storyId, 'mood');
-    }, 2400);
+    // Show transition overlay, speak the reply, dismiss after 5s
+    const go = () => { ov.classList.remove('show'); if (m.storyId === 'bear') startStory('mood'); else playStory(m.storyId, 'mood'); };
+    setTimeout(() => speak(m.reply), 350);
+    setTimeout(go, 3000);
   }
 
   function openParentGuide() { show('parentGuide'); }
@@ -2488,8 +2485,8 @@
           <rect width="280" height="240" fill="url(#kanG3)" rx="20"/>
           <ellipse cx="140" cy="232" rx="120" ry="4" fill="#000" opacity=".08"/>
 
-          <!-- TEACHER (picture-book bunny) -->
-          <g transform="translate(26, 84)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- TEACHER (picture-book bunny, centered pair, same ground line) -->
+          <g transform="translate(80, 96)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <ellipse cx="36" cy="104" rx="24" ry="34" fill="#F4E1E1"/>
             <ellipse cx="26" cy="136" rx="9" ry="6" fill="#F4E1E1"/>
             <ellipse cx="46" cy="136" rx="9" ry="6" fill="#F4E1E1"/>
@@ -2499,23 +2496,23 @@
             <path d="M22 46 Q26 42 30 46" fill="none"/>
             <path d="M42 46 Q46 42 50 46" fill="none"/>
             <path d="M30 60 Q36 66 42 60" fill="none"/>
-            <!-- arm reaching out, start inside body -->
-            <path d="M52 100 Q84 112 110 116" stroke-width="9" fill="none"/>
-            <ellipse cx="110" cy="116" rx="7" ry="6" fill="#F4E1E1"/>
+            <!-- arm reaching right — hand at global ~(118,176) -->
+            <path d="M52 100 Q62 104 68 80" stroke-width="9" fill="none"/>
+            <ellipse cx="68" cy="80" rx="8" ry="7" fill="#F4E1E1"/>
           </g>
 
-          <!-- LITTLE KANGAROO -->
-          <g transform="translate(148, 112)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- LITTLE KANGAROO (same Y baseline, ~60px closer to teacher) -->
+          <g transform="translate(156, 108)" stroke="#5C3D24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M40 60 Q68 76 60 122 Q48 130 40 122" fill="#D6A578"/>
-            <ellipse cx="22" cy="84" rx="20" ry="36" fill="#D6A578"/>
-            <ellipse cx="12" cy="122" rx="12" ry="7" fill="#D6A578"/>
-            <ellipse cx="32" cy="122" rx="12" ry="7" fill="#D6A578"/>
-            <ellipse cx="22" cy="28" rx="20" ry="20" fill="#D6A578"/>
-            <ellipse cx="12" cy="-2" rx="4" ry="14" fill="#D6A578" transform="rotate(-10 12 -2)"/>
-            <ellipse cx="32" cy="-2" rx="4" ry="14" fill="#D6A578" transform="rotate(10 32 -2)"/>
-            <!-- arm starting INSIDE body, reaching to teacher -->
-            <path d="M12 56 Q-8 54 -22 58" stroke-width="7" fill="none"/>
-            <circle cx="-22" cy="58" r="5" fill="#D6A578"/>
+            <ellipse cx="22" cy="86" rx="20" ry="36" fill="#D6A578"/>
+            <ellipse cx="12" cy="124" rx="12" ry="7" fill="#D6A578"/>
+            <ellipse cx="32" cy="124" rx="12" ry="7" fill="#D6A578"/>
+            <ellipse cx="22" cy="30" rx="20" ry="20" fill="#D6A578"/>
+            <ellipse cx="12" cy="0" rx="4" ry="14" fill="#D6A578" transform="rotate(-10 12 0)"/>
+            <ellipse cx="32" cy="0" rx="4" ry="14" fill="#D6A578" transform="rotate(10 32 0)"/>
+            <!-- arm reaching left, hand touches teacher's near ~(120,174) -->
+            <path d="M8 58 Q-8 62 -6 66" stroke-width="7" fill="none"/>
+            <circle cx="-6" cy="66" r="5" fill="#D6A578"/>
             <circle cx="14" cy="28" r="3" fill="#3E2A1F" stroke="none"/>
             <circle cx="30" cy="28" r="3" fill="#3E2A1F" stroke="none"/>
             <path d="M18 40 Q22 43 26 40" fill="none"/>
