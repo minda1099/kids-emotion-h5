@@ -902,7 +902,7 @@
     transition: transform .15s ease;
   }
   .choice-btn:active { transform: scale(.97); }
-  .choice-btn .label { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-2); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+  .choice-btn .label { width: 44px; height: 44px; border-radius: 22px; background: var(--bg-2); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; line-height:1; }
   .choice-btn.picked { background: var(--calm-2); }
   .choice-btn.dimmed { opacity: .4; }
 
@@ -2230,11 +2230,11 @@
     const panel = document.getElementById('gInteractionPanel');
     panel.classList.remove('answered');
     panel.innerHTML = `
-      <div class="prompt-box"><div class="q">${cfg.question}</div><div class="a">想一想，可以换一个再继续</div></div>
+      <div class="prompt-box"><div class="q">${cfg.question}</div><div class="a">想一想，点一个试试</div></div>
       <div class="choice-list">
         ${cfg.options.map((o,i) => `
           <button class="choice-btn" data-i="${i}">
-            <span class="label">${String.fromCharCode(65+i)}</span>
+            <span class="label" style="font-size:28px">${o.emoji || '❓'}</span>
             <span>${o.text}</span>
           </button>
         `).join('')}
@@ -2249,9 +2249,10 @@
         panel.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('picked', 'dimmed'));
         btn.classList.add('picked');
         panel.querySelectorAll('.choice-btn').forEach(b => { if (b !== btn) b.classList.add('dimmed'); });
+        // Speak choice text first, then feedback — concatenate so TTS reads both with a pause
+        speak(cleanForSpeech(opt.text) + '。 ' + cleanForSpeech(opt.feedback));
         showToast(opt.feedback);
         document.getElementById('gNarration').innerHTML = opt.followNarration || origNarration;
-        // continue button is unlocked after first pick; idempotent for re-picks
         onDone();
       });
     });
@@ -2949,17 +2950,20 @@
           question: '帮小猫选一个：',
           options: [
             {
-              text: '走过去抱抱妈妈，告诉她"我也想被抱"',
+              emoji: '🤗',
+              text: '走过去抱抱妈妈，告诉她我也想被抱',
               feedback: '说出来啦，心里轻多了 🧡',
               followNarration: '小猫走过去——<br>"妈妈，我也想被抱抱。"'
             },
             {
+              emoji: '🚪',
               text: '躲到房间里，谁都不见',
               feedback: '躲起来，妈妈就不知道呢',
               followNarration: '小猫躲到房间里，<br>心里更闷了……还是要试试说出来。'
             },
             {
-              text: '大喊一声"哼！讨厌！"',
+              emoji: '😤',
+              text: '大喊一声：哼！讨厌！',
               feedback: '大喊有点吓人，先说说看？',
               followNarration: '大喊之后小猫更难受了——<br>原来"说出来"和"喊出来"不一样。'
             }
@@ -3400,16 +3404,19 @@
           question: '帮小狐狸做个决定：',
           options: [
             {
-              text: '走过去说："弟弟，能让我也玩一下吗？"',
+              emoji: '🤝',
+              text: '走过去说：能让我也玩一下吗？',
               feedback: '说出来啦，弟弟一定愿意分享 🧡',
               followNarration: '小狐狸鼓起勇气问——<br>弟弟笑了："来呀，一起玩！"'
             },
             {
+              emoji: '✋',
               text: '把弟弟的玩具抢过来',
               feedback: '抢过来，两个人都不开心了',
               followNarration: '抢过来之后，<br>弟弟哭了，小狐狸也不开心。<br>下次试试问问看吧。'
             },
             {
+              emoji: '😔',
               text: '躲到角落里，自己生闷气',
               feedback: '闷在心里，会越闷越难受',
               followNarration: '小狐狸躲起来后心更酸了——<br>原来说出来才能让人听见。'
